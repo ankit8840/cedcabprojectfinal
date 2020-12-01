@@ -21,6 +21,7 @@ if(isset($_SESSION['booking'])){
         
                 $res = $conn1->insert($fields, $data, 'tbl_ride');
                 unset($_SESSION['booking']);
+                echo '<script>alert("Your ride is pending")<script>';
                 header("Refresh:0; url=userdashboard.php");
 }
 ?>

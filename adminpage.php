@@ -34,6 +34,7 @@ if ($totalearn->num_rows>0) {
 </div>
 <div id="piechart"></div>
 <script type="text/javascript">
+
 // Load google charts
 google.charts.load('current', {'packages':['corechart']});
 google.charts.setOnLoadCallback(drawChart);
