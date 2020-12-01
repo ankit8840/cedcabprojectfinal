@@ -1,0 +1,58 @@
+#section div img{
+    position: absolute;
+    z-index:-1;
+}
+#form1{
+    background-color: white;
+    border-radius: 10px;
+}
+#logo{
+    width:20%;
+}
+#form1 span{
+    background: linear-gradient(90deg,#0f0f0f,#960459); 
+    color:white;
+    font-weight: bold;
+    border-radius: 10%;
+}
+#submit{
+    background: linear-gradient(90deg,#0f0f0f,#960459); 
+    color:white;
+    font-weight: bold;
+    border:none;
+}
+#mss{
+    color:red;
+}
+#navbar{
+    background: linear-gradient(45deg,white,#960459); 
+   
+}
+#navbar a{
+    color:white;
+    font-weight: bold;
+}
+#form1 h5,h4{
+    padding-top: 0%;
+    padding-bottom: 0%;
+}
+#carttype{
+    text-decoration: none;
+}
+#pickup,#drop,#cartype{
+    -webkit-appearance: none;
+}
+footer{
+    font-size: 30px;
+    background: linear-gradient(45deg,white,#960459); 
+    color:white;
+}
+#copyright{
+    font-size: 20px;
+}
+#footer{
+    display: contents;
+}
+#book{
+    display:none;
+}
