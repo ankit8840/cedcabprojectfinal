@@ -61,7 +61,7 @@ if(isset($_SESSION['booking'])){
 <div class="tile1"><br>
 <a href="index.php"><i class="fa fa-th-large" style="font-size:36px;"></i><br><br>Book New Ride</a></div>
 <div class="tile1"><br>
-<a  href="booking.php"><i class="fa fa-automobile" style="font-size:36px;"></i><br><br><span class="count"><?php echo $pendingride?></span><br>Pending Rides</a></div>
+<a  href="userpendingrides.php"><i class="fa fa-automobile" style="font-size:36px;"></i><br><br><span class="count"><?php echo $pendingride?></span><br>Pending Rides</a></div>
 <div class="tile1">
 <a href="pendinguser.php"><i class="fa fa-address-book" style="font-size:36px"></i><br><br><span class="count"><?php echo $comride?></span><br>Completed Rides</a></div>
 <div class="tile1">

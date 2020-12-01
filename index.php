@@ -1,7 +1,7 @@
 <?php
     require 'class.php';
     $welcome='';
-    if(sizeof($_SESSION)>0){
+    if(!empty($_SESSION['userdata'])){
     $welcome=$_SESSION['userdata']['name'];
     }
     $con = new Booking();

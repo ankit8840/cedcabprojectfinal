@@ -20,6 +20,7 @@
                 $dropkm=$row['loc_distance'];
             }
        }
+       
     }
    
     $totaldistance=abs($pickupkm-$dropkm);
