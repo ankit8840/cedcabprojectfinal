@@ -51,6 +51,7 @@ $requst=$conn1->ridecom($id);
         <td>Distance</td>
         <td>Luggage</td>
         <td>Fare</td>
+        <td>Action</td>
     </tr>
     <?php if ($requst->num_rows>0) :?>
      <?php while ($row = $requst->fetch_assoc()) :?>
@@ -63,6 +64,7 @@ $requst=$conn1->ridecom($id);
             <td><?php echo $row['total_distance']?></td>
             <td><?php echo $row['luggage']?></td>
             <td><?php echo $row['total_fare']?></td>
+            <td><a style="color:red;text-decoration:none;" href="printinvoice.php?rideid=<?php echo $row['ride_id']?>">Invoice</a></td>
         </tr>
      <?php endwhile;?>
      <?php endif;?>
