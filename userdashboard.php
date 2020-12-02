@@ -64,9 +64,9 @@ if(isset($_SESSION['booking'])){
 <div class="tile1"><br>
 <a  href="userpendingrides.php"><i class="fa fa-automobile" style="font-size:36px;"></i><br><br><span class="count"><?php echo $pendingride?></span><br>Pending Rides</a></div>
 <div class="tile1">
-<a href="pendinguser.php"><i class="fa fa-address-book" style="font-size:36px"></i><br><br><span class="count"><?php echo $comride?></span><br>Completed Rides</a></div>
+<a href="usercomplete.php"><i class="fa fa-address-book" style="font-size:36px"></i><br><br><span class="count"><?php echo $comride?></span><br>Completed Rides</a></div>
 <div class="tile1">
-<a href="pendingrides.php"><i class="fa fa-bell" style="font-size:36px"></i><br><br><span class="count"><?php echo $cancleride?></span><br>Cancle Rides</a></div>
+<a href="usercanclerides.php"><i class="fa fa-bell" style="font-size:36px"></i><br><br><span class="count"><?php echo $cancleride?></span><br>Cancle Rides</a></div>
 <div class="tile1">
 <a href="showroute.php"><i class="fa fa-map-marker" style="font-size:36px"></i><br><br><span class="count"><?php echo $usertotal?></span><br>All Rides</div>
 <div class="tile1">

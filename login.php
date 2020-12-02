@@ -19,6 +19,7 @@ if (isset($_POST["submit"])) {
         }
     }
     else{
+        echo '<script>alert("Enter valid username or password")</script>';
         header("Refresh:0; url=login.php");
     }
 }

@@ -10,7 +10,7 @@
 <html>
 <head>
    <title>
-      Admin Panel
+      User
    </title>
     <link rel="stylesheet" type="text/css" href="login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -37,7 +37,7 @@
 
 ?>
     <div id="invoice">
-        <h1>Your Request is Pending</h1>
+        <h1 style="color:black">Your Request is Pending</h1>
         <div>
             <label>Pickup Point:-   </label><span><?php echo $pickup ?></span>
         </div>

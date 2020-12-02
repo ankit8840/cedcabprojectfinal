@@ -9,10 +9,20 @@ if (isset($_POST["submit"])) {
     $name = $_POST['name'];
     $password = $_POST['password'];
     $mobile = $_POST['mobile'];
-    echo $username,$password;
-    // if ($password!=$repassword) {
-    //     $error=array('input'=>'password','msg'=>'password doesnt match');
-    // }
+    if(!empty($mobile)){
+        if(preg_match('/^[0-9]{10}+$/', $mobile) && preg_match('/[a-z\s]/i',$name)){
+            $mobile=$mobile;
+            $name=$name;
+        }
+        else{
+        echo'<script>alert("please enter valid Data")</script>';
+        header("Refresh:0; url=singup.php");
+        return;
+        }
+    }
+   
+
+       
     if (sizeof($error) == 0) 
     {
         $fields = array('user_name', 'mobile', 'password', 'name');
@@ -22,7 +32,7 @@ if (isset($_POST["submit"])) {
 
         if ($res) 
         {
-            echo "<script>alert('inserted')</script>";
+            echo'<script>alert("Register sucessfull")</script>';
             $error=array('input'=>'form','msg'=>"1 Row inserted");
         }
     }
@@ -54,12 +64,12 @@ if (isset($_POST["submit"])) {
             <form method="POST">
                 <p>
                     <label for="username">Username: 
-                        <input type="text" name="username" required>
+                        <input type="text" name="username"  required>
                     </label>
                 </p>
                 <p>
                     <label for="name">Name: 
-                        <input type="text" name="name" required>
+                        <input type="text" name="name"  pattern="[A-Za-z]{1,}" required>
                     </label>
                 </p>
                 <p>

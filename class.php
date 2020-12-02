@@ -41,7 +41,7 @@ class User extends Database
     public function login($username,$password) 
     {
         $isblock=1;
-        $sql ='SELECT * FROM tbl_user WHERE 
+        $sql ='SELECT * FROM tbl_user WHERE BINARY
         `user_name`="'.$username.'" AND 
         `password`="'.$password.'" AND `isblock`="'.$isblock.'"';
         $result = $this->conn->query($sql);
@@ -65,9 +65,9 @@ class Location extends Database
         $result = $this->conn->query($sql);
         return $result;
     }
-    public function update($locid,$locname,$locdis)
+    public function update($locid,$locname,$locdis,$ava)
     {
-        $sql = "UPDATE tbl_location SET `loc_name`='$locname',`loc_distance`='$locdis'
+        $sql = "UPDATE tbl_location SET `loc_name`='$locname',`loc_distance`='$locdis',`is_available`='$ava'
         WHERE `loc_id` = '$locid' ";
         $result = $this->conn->query($sql);
         return $result;
@@ -188,7 +188,7 @@ class Riderequests extends Database{
     }
     public function cancle($id){
         $sql = "UPDATE tbl_ride SET `status`=0
-        WHERE `user_id` = '$id' ";
+        WHERE `ride_id` = '$id' ";
         $unblock = $this->conn->query($sql);
         return $unblock;
     }

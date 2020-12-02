@@ -4,8 +4,8 @@ $conn1 = new Riderequests();
 
 $conn1->connect('localhost', 'root', '', 'newtasks');
 $requst=$conn1->ridereq();
-if(isset($_REQUEST['pending_id'])){
-    $id=$_REQUEST['pending_id'];
+if(isset($_REQUEST['Approved_id'])){
+    $id=$_REQUEST['Approved_id'];
     $requst=$conn1->pending($id);
     header("Refresh:0; url=bookingreq.php");
 }
@@ -41,8 +41,8 @@ if(isset($_REQUEST['complete_id'])){
             <td><?php echo $row['total_distance']?></td>
             <td><?php echo $row['luggage']?></td>
             <td><?php echo $row['total_fare']?></td>
-            <td><a href="bookingreq.php?<?php echo $row['ride_id']?>">Cancle</a></td>
-            <td><a  id="pending" href="bookingreq.php?<?php if($row['status']==1){
+            <td><a  style="color:red;text-decoration:none;" href="bookingreq.php?complete_id=<?php echo $row['ride_id']?>">Cancle</a></td>
+            <td><a style="color:red;text-decoration:none;" id="pending" href="bookingreq.php?<?php if($row['status']==1){
                                                             echo "Approved";
                                                             }else
                                             echo "completed";?>_id=<?php echo $row['ride_id']?>"><?php if ($row['status']==2){

@@ -18,10 +18,10 @@ $ride=$conn1->sortname($sort);
     <h1 style="color:white">All Rides</h1>
     <div >
         <a href="#" id="sorta">Sort By</a>
-            <div class="sortby">
-                <a href="booking.php?sort=pickup">Name</a>
-                <a href="booking.php?sort=ride_date">Date</a>
-                <a href="booking.php?sort=total_fare">Fare</a>
+            <div style="color:white;"class="sortby">
+                <a style="color:red;text-decoration:none;" href="booking.php?sort=pickup">Name</a>
+                <a style="color:red;text-decoration:none;" href="booking.php?sort=ride_date">Date</a>
+                <a style="color:red;text-decoration:none;" href="booking.php?sort=total_fare">Fare</a>
             </div>
     </div>
     <table id="usertbl">

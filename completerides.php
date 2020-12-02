@@ -17,11 +17,11 @@ $ride=$conn1->completerides($sort);
 <div id="tiles">
     <h1 style="color:white">Complete Rides</h1>
     <div >
-        <a href="#"  style="color:white" id="sorta">Filter By</a>
+        <a href="#" style="color:white;  style="color:white" id="sorta">Filter By</a>
             <div class="sortby">
-                <a href="completerides.php?filter=day">Day</a>
-                <a href="completerides.php?filter=month">Month</a>
-                <a href="completerides.php?filter=year">Year</a>
+                <a  style="color:red;text-decoration:none;" href="completerides.php?filter=day">Day</a>
+                <a  style="color:red;text-decoration:none;" href="completerides.php?filter=month">Month</a>
+                <a  style="color:red;text-decoration:none;" href="completerides.php?filter=year">Year</a>
             </div>
     </div>
     <table id="tiletab">
@@ -48,7 +48,7 @@ $ride=$conn1->completerides($sort);
             <td><?php echo $row['luggage']?></td>
             <td><?php echo $row['total_fare']?></td>
             <td>Completed</td>
-            <td><a href="userinvoice.php?rideid=<?php echo $row['ride_id']?>?userid=<?php echo $row['customer_user_id']?>">Invoice</a></td>
+            <td><a style="color:red;text-decoration:none;" href="userinvoice.php?rideid=<?php echo $row['ride_id']?>">Invoice</a></td>
         </tr>
      <?php endwhile;?>
      <?php endif;?>

@@ -7,12 +7,16 @@ $rideid=$_GET["rideid"];
 $ride=$conn1->userinvoice($rideid);
 ?>
 <?php require 'adminnav.html'?>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <div id="tiles">
     <?php if ($ride->num_rows>0) :?>
      <?php while ($row = $ride->fetch_assoc()) :?>
         
         <div id="invoice">
             <h1 style="color:black;">User Invoice</h1>
+            <div>
+                <label>User Id:-   </label><span><?php echo $row['customer_user_id'] ?></span>
+            </div>
             <div>
                 <label>Pickup Point:-   </label><span><?php echo $row['pickup'] ?></span>
             </div>
@@ -33,19 +37,10 @@ $ride=$conn1->userinvoice($rideid);
             </div>
            
         <div>
-        <a href="#" id="download">Print</a>
+        <button  id="download" onclick="window.print()">Print</button>
      <?php endwhile;?>
      <?php endif;?>
     </table>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-window.onload=function(){
-    document.getElementById("download")
-    .addEventListener("click",()=>{
-    const invoice=this.document.getElementById("invoice");
-    html2pdf().form(invoice).save();
-    })
-}
-</script>
+</body>
+</html>

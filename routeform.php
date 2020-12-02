@@ -31,12 +31,12 @@ if (isset($_POST["submit"])) {
             <form action="" method="POST">
                 <p>
                     <label for="username">RouteName: 
-                        <input type="text" name="routename" required>
+                        <input type="text" name="routename"  pattern="[A-Za-z]{1,}" required>
                     </label>
                 </p>
                 <p>
                     <label for="password">Distance: 
-                        <input type="text" name="distance" required>
+                        <input type="number" name="distance" required>
                     </label>
                 </p>
                 <p class="submit">

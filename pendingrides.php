@@ -41,7 +41,7 @@ if(isset($_REQUEST['complete_id'])){
             <td><?php echo $row['total_distance']?></td>
             <td><?php echo $row['luggage']?></td>
             <td><?php echo $row['total_fare']?></td>
-            <td><a href="pendingrides.php">Cancle</a></td>
+            <td><a href="pendingrides.php?complete_id=<?php echo $row['ride_id']?>">Cancle</a></td>
             <td><a  id="pending" href="pendingrides.php?<?php if($row['status']==1){
                                                             echo "pending";
                                                             }else
