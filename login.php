@@ -1,4 +1,5 @@
 <?php
+GLOBAL $username;
 require 'class.php';
 $con = new User();
 $con->connect('localhost', 'root', '', 'newtasks');
@@ -21,6 +22,11 @@ if (isset($_POST["submit"])) {
         header("Refresh:0; url=login.php");
     }
 }
+if(isset($_POST["remember"])){
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    setcookie($username, $password, time() + (86400 * 30), "/");
+}
 ?>
 
 <!DOCTYPE html>
@@ -35,9 +41,7 @@ if (isset($_POST["submit"])) {
 <div id="nav1">
     <ul>
         <li><img src="olaimg.png"></li>
-        <div id="nav">
-            <h1>Welcome To CEDCABS Enjoy Your Ride</h1>
-        </div>
+       <li><a href="index.php">HOME</a></li>
     </ul>
 </div>
     <div id="wrapper">
@@ -46,7 +50,8 @@ if (isset($_POST["submit"])) {
             <form action="" method="POST">
                 <p>
                     <label for="username">Username: 
-                        <input type="text" name="username" required>
+                    <input type="text" name="username" <?php if(isset($_COOKIE[$username])):?>value=<?php $username ?><?php endif; ?>
+                        <?php if(!isset($_COOKIE[$username])):?>value=''<?php endif; ?>>
                     </label>
                 </p>
                 <p>
@@ -54,10 +59,15 @@ if (isset($_POST["submit"])) {
                         <input type="password" name="password" required>
                     </label>
                 </p>
+                <p>
+                    <input type="checkbox" name="remember" id="check"><label>Remember Me</label>
+                </p>
                 <p class="submit">
                     <input type="submit" name="submit" value="Login">
                 </p>
-
+                <p class="login">
+                    <a href="singup.php">Sign up?</a>
+                </p>
             </form>
         </div>
         <!-- <div class="error">

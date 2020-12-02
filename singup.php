@@ -44,9 +44,7 @@ if (isset($_POST["submit"])) {
 <div id="nav1">
     <ul>
         <li><img src="olaimg.png"></li>
-        <div id="nav">
-            <h1>Welcome To CEDCABS Enjoy Your Ride</h1>
-        </div>
+        <li><a href="index.php">Home</a></li>
     </ul>
 </div>
     <div id="wrapper">

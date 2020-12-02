@@ -65,9 +65,9 @@ if(isset($_POST['delete'])){
         <tr>
             <td><input id="userid" type="text" value=<?php echo $row['user_id']?> name="userid" size="2"></td>
             <td><input id="username" type="text" value=<?php echo $row['user_name']?> name="username" size="10"></td>
-            <td><input type="text" value=<?php echo $row['name']?> name="name1" size="10"></td>
-            <td><input type="text" value=<?php echo $row['mobile']?> name="mobile" size="10"></td>
-            <td><input type="text" value=<?php echo $row['password']?> name="password" size="5"></td>
+            <td><input type="text" value=<?php echo $row['name']?> name="name1" size="10" required></td>
+            <td><input type="text" id="mobile" value=<?php echo $row['mobile']?> name="mobile" size="10" required></td>
+            <td><input type="text" value=<?php echo $row['password']?> name="password" size="5" required></td>
             <td><input type="submit" value="UPDATE" name="update"></td>
             <td><input type="submit" value="DELETE" name="delete"></td>
         </tr>
@@ -77,9 +77,19 @@ if(isset($_POST['delete'])){
 </table>
      </div>
      </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     document.getElementById("userid").readOnly = true; 
     document.getElementById("username").readOnly = true; 
+        $(function () {
+            
+            $("#mobile").keypress(function (e) {
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    return false;
+                }
+            });
+        });
+
     </script>
     <html>
 

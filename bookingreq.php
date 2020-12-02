@@ -43,12 +43,12 @@ if(isset($_REQUEST['complete_id'])){
             <td><?php echo $row['total_fare']?></td>
             <td><a href="bookingreq.php?<?php echo $row['ride_id']?>">Cancle</a></td>
             <td><a  id="pending" href="bookingreq.php?<?php if($row['status']==1){
-                                                            echo "pending";
+                                                            echo "Approved";
                                                             }else
                                             echo "completed";?>_id=<?php echo $row['ride_id']?>"><?php if ($row['status']==2){
                 echo "complete";
             }else{
-                echo "pending";
+                echo "Approved";
             }?></td>
         </tr>
      <?php endwhile;?>

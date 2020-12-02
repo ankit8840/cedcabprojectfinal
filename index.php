@@ -63,7 +63,7 @@
                 <div class="col-sm-6 col-md-12 text-center pb-5">
                     <h1>WELCOME<?php echo " ".$welcome ?></h1>
                     <h1>Book a city Taxi to your Destination in Town</h1>
-                    <h4>Choose Frpm a range and categories and price</h4>
+                    <h4>Choose From a range and categories and price</h4>
                 </div>
                 <div class="col-sm-12 col-md-6 ml-2" id="form1">
                     <div class="text-center">

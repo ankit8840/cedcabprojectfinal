@@ -314,3 +314,6 @@ table tr td .image{
       color:white;
       text-decoration: none;
   }
+  #check{
+      float: left;
+  }

@@ -31,6 +31,7 @@ $(function () {
         var drop = $("#drop").val();
         var cartype = $("#cartype").val();
         var weight = $("#weight").val();
+        
         if (pickup == drop) {
             alert("pickup and drop location is same");
             $("#submit").html("PLEASE CHOOSE DIFFERENT DROP LOCATION");
@@ -68,7 +69,11 @@ $(function () {
             success: function (result) {
                 $text=$("#submit").html();
                 if(result==$text){
+                    var r=confirm("For Booking You Have to login First Do You want to continue?");
+                    if(r==true)
                     window.location.href = "login.php";
+                    else
+                    window.location.href = "index.php";
                 }
                else{
                    window.location.href = "invoice.php";

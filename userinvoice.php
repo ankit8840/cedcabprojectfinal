@@ -31,10 +31,21 @@ $ride=$conn1->userinvoice($rideid);
             <div>
                 <label>Date:-  </label><span><?php  echo $row['ride_date'] ?></span>
             </div>
+           
         <div>
-       
+        <a href="#" id="download">Print</a>
      <?php endwhile;?>
      <?php endif;?>
     </table>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+window.onload=function(){
+    document.getElementById("download")
+    .addEventListener("click",()=>{
+    const invoice=this.document.getElementById("invoice");
+    html2pdf().form(invoice).save();
+    })
+}
+</script>
