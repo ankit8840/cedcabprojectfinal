@@ -68,7 +68,7 @@ if(isset($_SESSION['booking'])){
 <div class="tile1">
 <a href="usercanclerides.php"><i class="fa fa-bell" style="font-size:36px"></i><br><br><span class="count"><?php echo $cancleride?></span><br>Cancle Rides</a></div>
 <div class="tile1">
-<a href="showroute.php"><i class="fa fa-map-marker" style="font-size:36px"></i><br><br><span class="count"><?php echo $usertotal?></span><br>All Rides</div>
+<a href="userrides.php"><i class="fa fa-map-marker" style="font-size:36px"></i><br><br><span class="count"><?php echo $usertotal?></span><br>All Rides</div>
 <div class="tile1">
 <a href="useraccount.php"><i class="fa fa-hourglass-1" style="font-size:36px"></i><br><br><span class="count"></span><br>Account</a></div>
 </div>

@@ -5,8 +5,10 @@ $conn1 = new userrides();
 $id=$_SESSION["userdata"]["userid"];
 $conn1->connect('localhost', 'root', '', 'newtasks');
 $requst=$conn1->ridereq($id);
-if(isset($_POST['cancle'])){
-    $requst=$conn1->rid($id);  
+if(isset($_REQUEST['cancle'])){
+    $rid=$_REQUEST['cancle'];
+    $requst=$conn1->cancle($rid);  
+    header("Refresh:0; url=userpendingrides.php");
 }
 ?>
 <!DOCTYPE html>
@@ -45,7 +47,7 @@ if(isset($_POST['cancle'])){
 <div id="tiles">
 <div id="ridereq">
     <h1 style="color:white">Pending Ride Request</h1>
-    <table id="tiletab">
+    <table id="tiletab" style="margin-left:50px;">
     <tr>
         <td>RideID</td>
         <td>Ride_Date</td>
@@ -54,6 +56,7 @@ if(isset($_POST['cancle'])){
         <td>Distance</td>
         <td>Luggage</td>
         <td>Fare</td>
+        <td>Action</td>
     </tr>
     <?php if ($requst->num_rows>0) :?>
      <?php while ($row = $requst->fetch_assoc()) :?>
@@ -66,6 +69,7 @@ if(isset($_POST['cancle'])){
             <td><?php echo $row['total_distance']?></td>
             <td><?php echo $row['luggage']?></td>
             <td><?php echo $row['total_fare']?></td>
+            <td><a href="userpendingrides.php?cancle=<?php echo $row['ride_id']?>">Cancle</a></td>
         </tr>
      <?php endwhile;?>
      <?php endif;?>

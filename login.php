@@ -10,9 +10,20 @@ if (isset($_POST["submit"])) {
     $password = $_POST['password'];
     $login=$con->login($username,$password);
     // echo '<script>alert("'.$login.'");</script>';
+    if(isset($_SESSION['booking'])){
+        $time=$_SESSION['booking']['time'];
+        $logtime=$_SESSION['userdata']['logintime'];
+        $totaltime=$logtime-$time;
+        if($totaltime>30){
+            echo '<script>alert("Your Booking session is expired")</script>';
+            unset($_SESSION['booking']);
+        }
+    }
+    
+      
     if($login!="Login Failed"){
         if($_SESSION['userdata']['name']=="admin"){
-        header("Refresh:0; url=adminpage.php");
+        header("Refresh:0; url=admin/adminpage.php");
         }
         else{
         header("Refresh:0; url=userdashboard.php");

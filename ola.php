@@ -198,17 +198,12 @@
         
                 $res = $con1->insert($fields, $data, 'tbl_ride');
                 return $res;
-                // if ($res) 
-                // {
-                //     echo "<script>alert('inserted')</script>";
-                //     $error=array('input'=>'form','msg'=>"1 Row inserted");
-                // }
 
         }
     }else{
         $status=1;
         $_SESSION['booking']=array('pickup' => $pickup,
-    'drop'=>$drop,'distance'=>$totaldistance,'luggage'=>$weight,'fare'=>$fare,'status'=>1);
+    'drop'=>$drop,'distance'=>$totaldistance,'luggage'=>$weight,'fare'=>$fare,'status'=>1,"time"=>time());
     }
 
 ?>

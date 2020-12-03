@@ -9,7 +9,7 @@ $ride=$conn1->approveduser();
 <?php require 'adminnav.html'?>
 <div id="tiles">
     <h1 style="color:white">Approved User Request</h1>
-    <table>
+    <table style="margin-left:50px;">
         <tr>
             <td>UserID</td>
             <td>User Name</td>

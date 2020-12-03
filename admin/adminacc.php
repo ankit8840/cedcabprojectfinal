@@ -31,9 +31,9 @@ if(isset($_POST['update'])){
         <tr>
             <td><input id="userid" type="text" value=<?php echo $row['user_id']?> name="userid" size="2"></td>
             <td><input id="username" type="text" value=<?php echo $row['user_name']?> name="username" size="10"></td>
-            <td><input type="text" value=<?php echo $row['name']?> name="name1" size="10" required></td>
+            <td><input type="text"  pattern="[A-Za-z]{1,}" value=<?php echo $row['name']?> name="name1" size="10" required></td>
             <td><input type="text" id="mobile" value=<?php echo $row['mobile']?> name="mobile" size="10" required></td>
-            <td><input type="text" value=<?php echo $row['password']?> name="password" size="5" required></td>
+            <td><input type="password" value=<?php echo $row['password']?> name="password" size="5" required></td>
             <td><input type="submit" value="UPDATE" name="update"></td>
         </tr>
     </form>

@@ -55,6 +55,23 @@ $(function () {
             }
         });
     });
+    
+    $("#drop").click(function (e) {
+          $("#book").hide();
+          $("#submit").html("Calculate fare");  
+    });
+    $("#pickup").click(function (e) {
+        $("#book").hide();  
+        $("#submit").html("Calculate fare");  
+    });
+    $("#cartype").click(function (e) {
+        $("#book").hide();  
+        $("#submit").html("Calculate fare");  
+    });
+    $("#weight").keypress(function (e) {
+        $("#book").hide(); 
+        $("#submit").html("Calculate fare");   
+    });
     $("#book").click(function (e) {
         e.preventDefault();
         var pickup = $("#pickup").val();
@@ -75,9 +92,9 @@ $(function () {
                     else
                     window.location.href = "index.php";
                 }
-               else{
+                else{
                    window.location.href = "invoice.php";
-               }
+                }
                 
             },
             error: function () {

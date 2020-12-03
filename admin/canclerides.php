@@ -4,21 +4,11 @@ $conn1 = new Riderequests();
 
 $conn1->connect('localhost', 'root', '', 'newtasks');
 $ride=$conn1->canclerides();
-// if(isset($_REQUEST['rn'])){
-//     $id=$_REQUEST['rn'];
-//     $requst=$conn1->accept($id);
-//     header("Refresh:0; url=ride.php");
-// }
-// if(isset($_REQUEST['gn'])){
-//     $id=$_REQUEST['gn'];
-//     $requst=$conn1->cancle($id);
-//     header("Refresh:0; url=ride.php");
-// }
 ?>
 <?php require 'adminnav.html'?>
 <div id="tiles">
     <h1 style="color:white">Cancle Rides</h1>
-    <table id="tiletab">
+    <table id="tiletab" style="margin-left:50px;">
     <tr>
         <td>RideID</td>
         <td>Ride_Date</td>

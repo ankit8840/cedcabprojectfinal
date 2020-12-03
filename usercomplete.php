@@ -42,7 +42,7 @@ $requst=$conn1->ridecom($id);
 <div id="tiles">
 <div id="ridereq">
     <h1 style="color:white">Complete Rides</h1>
-    <table id="tiletab">
+    <table id="tiletab" style="margin-left:50px;">
     <tr>
         <td>RideID</td>
         <td>Ride_Date</td>

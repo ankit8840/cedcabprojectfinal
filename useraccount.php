@@ -8,6 +8,16 @@ $loc=$con->useraccount($id);
 if(isset($_POST['update'])){
     $name=$_POST['name1'];
     $mobile = $_POST['mobile'];
+    if(!empty($mobile)){
+        if(preg_match('/^[0-9]{10}+$/', $mobile)){
+            $mobile=$mobile;
+        }
+        else{
+            echo'<script>alert("please enter valid Data")</script>';
+            header("Refresh:0; url=useraccount.php");
+            return;
+        }
+    }
     $password = $_POST['password'];
     $loc=$con->update($id,$name,$mobile,$password);
     header("Refresh:0; url=useraccount.php");
@@ -21,7 +31,7 @@ if(isset($_POST['delete'])){
 <html>
 <head>
    <title>
-      Admin Panel
+      User Panel
    </title>
     <link rel="stylesheet" type="text/css" href="login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -65,9 +75,9 @@ if(isset($_POST['delete'])){
         <tr>
             <td><input id="userid" type="text" value=<?php echo $row['user_id']?> name="userid" size="2"></td>
             <td><input id="username" type="text" value=<?php echo $row['user_name']?> name="username" size="10"></td>
-            <td><input type="text" value=<?php echo $row['name']?> name="name1" size="10" required></td>
+            <td><input type="text"  pattern="[A-Za-z]{1,}" value=<?php echo $row['name']?> name="name1" size="10" required></td>
             <td><input type="text" id="mobile" value=<?php echo $row['mobile']?> name="mobile" size="10" required></td>
-            <td><input type="text" value=<?php echo $row['password']?> name="password" size="5" required></td>
+            <td><input type="password" value=<?php echo $row['password']?> name="password" size="5" required></td>
             <td><input type="submit" value="UPDATE" name="update"></td>
             <td><input type="submit" value="DELETE" name="delete"></td>
         </tr>
@@ -91,7 +101,7 @@ if(isset($_POST['delete'])){
         });
 
     </script>
-    <html>
+<html>
 
 
 

@@ -6,7 +6,36 @@ $conn1->connect('localhost', 'root', '', 'newtasks');
 $rideid=$_GET["rideid"];
 $ride=$conn1->userinvoice($rideid);
 ?>
-<?php require 'adminnav.html'?>
+<!DOCTYPE html>
+<html>
+<head>
+   <title>
+      User Panel
+   </title>
+    <link rel="stylesheet" type="text/css" href="login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div id="nav1">
+        <ul>
+            <li><img src="olaimg.png"></li>
+            <div id="nav2">
+                <h1>Welcome <?php echo $name ?></h1>
+            </div>
+        </ul>
+<div id="aside">
+
+<div class="sidenav">
+  <a href="userdashboard.php">Home</a>
+  <a href="index.php">Book New Ride</a>
+  <a href="userpendingrides.php">Pending Rides</a>
+  <a href="usercomplete.php">Completed Rides</a>
+  <a href="usercanclerides.php">Canceled Rides</a>
+  <a href="userrides.php">All Rides</a>
+  <a href="useraccount.php">Account</a>
+  <a href="logout.php">Logout</a>
+</div> 
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <div id="tiles">
     <?php if ($ride->num_rows>0) :?>
