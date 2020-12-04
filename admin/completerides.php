@@ -48,7 +48,7 @@ $ride=$conn1->completerides($sort);
             <td><?php echo $row['luggage']?></td>
             <td><?php echo $row['total_fare']?></td>
             <td>Completed</td>
-            <td><a style="color:red;text-decoration:none;" href="userinvoice.php?rideid=<?php echo $row['ride_id']?>">Invoice</a></td>
+            <td><a style="color:red;text-decoration:none;" href="../userinvoice.php?rideid=<?php echo $row['ride_id']?>">Invoice</a></td>
         </tr>
      <?php endwhile;?>
      <?php endif;?>

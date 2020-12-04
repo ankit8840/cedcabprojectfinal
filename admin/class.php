@@ -196,13 +196,13 @@ class Riderequests extends Database{
     public function completerides($sort)
     {
         if ($sort == 'day') {
-            $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE  `ride_date`> DATE_SUB(curdate(),INTERVAL 1 DAY) ");
+            $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE  `ride_date`> DATE_SUB(curdate(),INTERVAL 1 DAY) AND `status`=2 ");
         } elseif ($sort == 'month') {
-            $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE  `ride_date`> DATE_SUB(curdate(),INTERVAL 1 MONTH) ");
+            $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE  `ride_date`> DATE_SUB(curdate(),INTERVAL 1 MONTH) AND `status`=2 ");
         } elseif ($sort == 'year') {
-            $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE  `ride_date`> DATE_SUB(curdate(),INTERVAL 1 YEAR) ");
+            $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE  `ride_date`> DATE_SUB(curdate(),INTERVAL 1 YEAR) AND `status`=2 ");
         } else {
-            $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride ");
+            $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE `status`=2  ");
         }
        
             return $result;
