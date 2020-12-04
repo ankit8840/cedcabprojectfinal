@@ -79,13 +79,21 @@ if(isset($_POST['delete'])){
             <td><input type="text" id="mobile" value=<?php echo $row['mobile']?> name="mobile" size="10" required></td>
             <td><input type="password" value=<?php echo $row['password']?> name="password" size="5" required></td>
             <td><input type="submit" value="UPDATE" name="update"></td>
-            <td><input type="submit" value="DELETE" name="delete"></td>
+            <td><input type="submit" onClick="javascript: return confirm('Please confirm deletion');" value="DELETE" name="delete"></td>
         </tr>
     </form>
      <?php endwhile;?>
      <?php endif;?>
 </table>
      </div>
+     <div id="addfoot">
+        <a><i class="fa fa-facebook-square"></i></a>
+        <a><i class="fa fa-twitter-square"></i></a>
+        <a><i class="fa fa-instagram"></i></a>
+        <div id="copyright">© 2020 Copyright:
+            <a href="#">Cedcabs.com</a>
+        </div>
+</div>
      </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>

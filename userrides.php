@@ -69,4 +69,12 @@ $requst=$conn1->ride($id);
 </table>
 </div>
 </div>
+<div id="addfoot">
+        <a><i class="fa fa-facebook-square"></i></a>
+        <a><i class="fa fa-twitter-square"></i></a>
+        <a><i class="fa fa-instagram"></i></a>
+        <div id="copyright">© 2020 Copyright:
+            <a href="#">Cedcabs.com</a>
+        </div>
+</div>
 </html>

@@ -23,7 +23,8 @@ class Database
             if (mysqli_query($this->conn, $insert)) {
                 return true;
             } else {
-                die(mysqli_error($this->conn));
+                echo '<script>alert("Not Accept Duplicate data or Invalid data")</script>';
+                //die(mysqli_error($this->conn));
             }
         } catch (Exception $ex) {
             echo "Some Exception Occured " . $ex;
@@ -170,11 +171,30 @@ class Riderequests extends Database{
         $result = $this->conn->query($sql);
         return $result;
     }
-    public function sortname($name)
+    public function sortname($sort,$order)
     {
-        $sql="SELECT * FROM tbl_ride  ORDER BY  $name ";
+        if($order=="asc" && ($sort=='ride_date'|| $sort=='total_fare')){
+        $sql="SELECT * FROM tbl_ride  ORDER BY  `$sort` asc ";
         $result = $this->conn->query($sql);
         return $result;
+        }
+        if($order=="desc" && ($sort=='ride_date'|| $sort=='total_fare')){
+            $sql="SELECT * FROM tbl_ride  ORDER BY  `$sort` desc ";
+            $result = $this->conn->query($sql);
+            return $result;   
+        }
+        if ($sort == 'day') {
+            $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE  `ride_date`> DATE_SUB(curdate(),INTERVAL 1 DAY)");
+
+        } elseif ($sort == 'month') {
+            $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE  `ride_date`> DATE_SUB(curdate(),INTERVAL 1 MONTH)");
+        } elseif ($sort == 'year') {
+            $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE  `ride_date`> DATE_SUB(curdate(),INTERVAL 1 YEAR)");
+        } else {
+            $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride" );
+        }
+       return $result;
+            
     }
     function ridereq(){
     $sql1="SELECT * FROM `tbl_ride`  WHERE `status`=1";

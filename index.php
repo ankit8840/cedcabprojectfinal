@@ -41,15 +41,20 @@
                             <a class="nav-link" href="userdashboard.php">Home</a>
                         </li>
                         <?php endif; ?>
-                        <li class="nav-item">
+                        <li class="nav-item" style="display: block ruby;">
                             <?php if(!empty($_SESSION["userdata"])){
-                                $link="logout.php";
-                                $linkname="Log Out";
+                                $link1="logout.php";
+                                $linkname1="Log Out";
+                                $link2="";
+                                    $linkname2="";
                                 }else{
-                                    $link="singup.php";
-                                    $linkname="SIGN UP";
+                                    $link1="singup.php";
+                                    $linkname1="SIGN UP";
+                                    $link2="login.php";
+                                    $linkname2="LOGIN";
                                 }?>
-                            <a class="nav-link" href=<?php echo $link ?>><?php echo $linkname ?></a>
+                            <a class="nav-link" href=<?php echo $link1 ?>><?php echo $linkname1 ?></a>
+                            <a class="nav-link" href=<?php echo $link2 ?>><?php echo $linkname2 ?></a>
                         </li>
                     </ul>
                 </div>
@@ -117,7 +122,7 @@
                                 <div class="input-group-prepend">
                                     <p class="input-group-text" id="inputGroup-sizing-default">Luggage</p>
                                 </div>
-                                <input type="text" class="form-control" id="weight" name="weight" placeholder="Enter Weight in Kg">
+                                <input type="text" class="form-control" class="checkdot" id="weight" name="weight" placeholder="Enter Weight in Kg">
                                 <p id="mss">
 
                                 </p>

@@ -14,7 +14,12 @@ if ($totalearn->num_rows>0) {
         $sum +=$row['total_fare'];
     }
 }
-
+if (!empty(isset($_SESSION['userdata']) && ($_SESSION['userdata']['name'] == 'admin'))) {
+    $user = $_SESSION['userdata']['name'];
+} else {
+    echo "<script>alert('Permission Denied')</script>";
+    header("Refresh:0; url=../login.php");
+}
 
 ?>
 <?php require 'adminnav.html'?>
@@ -26,12 +31,20 @@ if ($totalearn->num_rows>0) {
 <div class="tile">
 <a href="pendinguser.php"><i class="fa fa-address-book" style="font-size:36px"></i><br><br><span class="count"><?php echo $userreq?></span><br>Pending user Request</a></div>
 <div class="tile">
-<a href="pendingrides.php"><i class="fa fa-bell" style="font-size:36px"></i><br><br><span class="count"><?php echo $ridereq?></span><br>Pending Ride Request</a></div>
+<a href="bookingreq.php"><i class="fa fa-bell" style="font-size:36px"></i><br><br><span class="count"><?php echo $ridereq?></span><br>Pending Ride Request</a></div>
 <div class="tile">
 <a href="showroute.php"><i class="fa fa-map-marker" style="font-size:36px"></i><br><br><span class="count"><?php echo $location?></span><br>Total Location</div>
 <div class="tile">
 <a><i class="fa fa-hourglass-1" style="font-size:36px"></i><br><br><span class="count"><?php echo $sum?></span><br>Total Earning</a></div>
 </div>
+<div id="addfoot">
+        <a><i class="fa fa-facebook-square"></i></a>
+        <a><i class="fa fa-twitter-square"></i></a>
+        <a><i class="fa fa-instagram"></i></a>
+        <div id="copyright">© 2020 Copyright:
+            <a href="#">Cedcabs.com</a>
+        </div>
+</div>
 
-
+</body>
 </html>

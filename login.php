@@ -86,7 +86,6 @@ if(isset($_POST["remember"])){
                 <?php echo $message ?>
         </div> -->
     </div>
-    <div id="margin">
-    </div>
+    <?php require 'footer.html'; ?>
 </body>
 </html>

@@ -1,5 +1,11 @@
 <?php
 require 'class.php';
+if (!empty(isset($_SESSION['userdata']) && ($_SESSION['userdata']['name'] == 'admin'))) {
+    $user = $_SESSION['userdata']['name'];
+} else {
+    echo "<script>alert('Permission Denied')</script>";
+    header("Refresh:0; url=../login.php");
+}
 $conn1 = new Ride();
 
 $conn1->connect('localhost', 'root', '', 'newtasks');
@@ -38,11 +44,19 @@ if(isset($_REQUEST['gn'])){
                 <td><?php echo $row['date']?></td>
                 <td><?php echo $row['mobile']?></td>
                 <td><a href="ride.php?rn=<?php echo $row['user_id']?>">Approved</a></td>
-                <td><a href="ride.php?gn=<?php echo $row['user_id']?>">Cancle</a></td>
+                <td><a onClick="javascript: return confirm('Please confirm deletion');" href="ride.php?gn=<?php echo $row['user_id']?>">Cancle</a></td>
             </tr>
         <?php endwhile;?>
         <?php endif;?>
     </table>
+</div>
+<div id="addfoot">
+        <a><i class="fa fa-facebook-square"></i></a>
+        <a><i class="fa fa-twitter-square"></i></a>
+        <a><i class="fa fa-instagram"></i></a>
+        <div id="copyright">© 2020 Copyright:
+            <a href="#">Cedcabs.com</a>
+        </div>
 </div>
 <script>
     function req(){

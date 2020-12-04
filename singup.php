@@ -64,7 +64,7 @@ if (isset($_POST["submit"])) {
             <form method="POST">
                 <p>
                     <label for="username">Username: 
-                        <input type="text" name="username"  required>
+                        <input type="text" name="username" pattern="[a-zA-Z][a-zA-Z0-9-_\.]{1,20}"  required>
                     </label>
                 </p>
                 <p>
@@ -94,8 +94,7 @@ if (isset($_POST["submit"])) {
             
         </div>
     </div>
-    <div id="margin">
-    </div>
+    <?php require 'footer.html'; ?>
 </body>
 <script>
 $(function () {

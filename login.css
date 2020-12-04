@@ -26,7 +26,7 @@ p.login a{
     color:lightseagreen;
 }
 body{
-    background-image: url("taxi1.jpg");
+    background-image: url("car.jpg");
   /* Full height */
   height: 100%;
 margin:0px;
@@ -316,4 +316,16 @@ table tr td .image{
   }
   #check{
       float: left;
+  }
+  #footer{
+    background: linear-gradient(90deg,#960459,white); 
+    padding: 28px;
+    margin-top: 550px;
+    text-align:center;
+  }
+  #addfoot{
+    margin-top: 727px;
+    background: linear-gradient(90deg,#960459,white); 
+    padding: 25px;
+    text-align:center;
   }

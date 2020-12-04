@@ -4,7 +4,7 @@ $name=$_SESSION["userdata"]["name"];
 $conn1 = new userrides();
 $id=$_SESSION["userdata"]["userid"];
 $conn1->connect('localhost', 'root', '', 'newtasks');
-$requst=$conn1->ridecancle($id);
+$requst=$conn1->userridecancle($id);
 ?>
 <!DOCTYPE html>
 <html>
@@ -68,5 +68,13 @@ $requst=$conn1->ridecancle($id);
      <?php endif;?>
 </table>
 </div>
+</div>
+<div id="addfoot">
+        <a><i class="fa fa-facebook-square"></i></a>
+        <a><i class="fa fa-twitter-square"></i></a>
+        <a><i class="fa fa-instagram"></i></a>
+        <div id="copyright">© 2020 Copyright:
+            <a href="#">Cedcabs.com</a>
+        </div>
 </div>
 </html>

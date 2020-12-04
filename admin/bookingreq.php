@@ -1,9 +1,14 @@
 <?php
 require 'class.php';
+if (!empty(isset($_SESSION['userdata']) && ($_SESSION['userdata']['name'] == 'admin'))) {
+    $user = $_SESSION['userdata']['name'];
+} else {
+    echo "<script>alert('Permission Denied')</script>";
+    header("Refresh:0; url=../login.php");
+}
 $conn1 = new Riderequests();
 
 $conn1->connect('localhost', 'root', '', 'newtasks');
-$requst=$conn1->ridereq();
 if(isset($_REQUEST['Approved_id'])){
     $id=$_REQUEST['Approved_id'];
     $requst=$conn1->pending($id);
@@ -11,13 +16,40 @@ if(isset($_REQUEST['Approved_id'])){
 }
 if(isset($_REQUEST['complete_id'])){
     $id=$_REQUEST['complete_id'];
+    // echo '<script>confirm("Do You want to Delete?")</script>';
     $requst=$conn1->cancle($id);
     header("Refresh:0; url=bookingreq.php");
 }
+$id=$_SESSION["userdata"]["userid"];
+$conn1->connect('localhost', 'root', '', 'newtasks');
+if(isset($_REQUEST['sort'])&&($_REQUEST['order'])){
+    $sort=$_REQUEST['sort'];
+    $order=$_REQUEST['order'];
+}else{
+
+$sort="ride_id";
+$order="asc";
+}
+$requst=$conn1->ridereq($sort,$order);
 ?>
 <?php require 'adminnav.html'?>
 <div id="tiles">
     <h1 style="color:white">Pending Rides</h1>
+    <div >
+        <a href="#" id="sorta">Sort By</a>
+            <div style="color:white;"class="sortby">
+                <a style="color:red;text-decoration:none;" href="#" id="name">Name</a>
+                <a style="color:red;text-decoration:none;" href="#" id="date">Date</a>
+            </div>
+            <div id="ordername">
+                <a style="color:red;text-decoration:none;" id="nameasc" href="bookingreq.php?sort=pickup?order=asc">Assending</a>
+                <a style="color:red;text-decoration:none;" id="namedesc" href="bookingreq.php?sort=ride_date?order=desc">Descending</a>
+            </div>
+            <div id="orderdate">
+                <a style="color:red;text-decoration:none;" id="dateasc" href="bookingreq.php?sort=pickup?order=asc">Assending</a>
+                <a style="color:red;text-decoration:none;" id="datedesc" href="bookingreq.php?sort=ride_date?order=desc">Descending</a>
+            </div>
+    </div>
     <table id="tiletab">
     <tr>
         <td>RideID</td>
@@ -41,7 +73,7 @@ if(isset($_REQUEST['complete_id'])){
             <td><?php echo $row['total_distance']?></td>
             <td><?php echo $row['luggage']?></td>
             <td><?php echo $row['total_fare']?></td>
-            <td><a  style="color:red;text-decoration:none;" href="bookingreq.php?complete_id=<?php echo $row['ride_id']?>">Cancle</a></td>
+            <td><a  style="color:red;text-decoration:none;"  onClick="javascript: return confirm('Please confirm deletion');" href="bookingreq.php?complete_id=<?php echo $row['ride_id']?>">Cancle</a></td>
             <td><a style="color:red;text-decoration:none;" id="pending" href="bookingreq.php?<?php if($row['status']==1){
                                                             echo "Approved";
                                                             }else
@@ -54,4 +86,27 @@ if(isset($_REQUEST['complete_id'])){
      <?php endwhile;?>
      <?php endif;?>
 </table>
+</div>
+<div id="addfoot">
+        <a><i class="fa fa-facebook-square"></i></a>
+        <a><i class="fa fa-twitter-square"></i></a>
+        <a><i class="fa fa-instagram"></i></a>
+        <div id="copyright">© 2020 Copyright:
+            <a href="#">Cedcabs.com</a>
+        </div>
+</div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(function () {
+    $("#nameasc").hide();
+    $("#namedesc").hide();
+    $("#dateasc").hide();
+    $("#datedesc").hide();
+    $("#name").click(function(){
+        $("#nameasc").show();
+        $("#namedesc").show(); 
+    })
+    });
+    </script>
 </html>

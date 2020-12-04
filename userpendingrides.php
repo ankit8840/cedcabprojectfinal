@@ -69,11 +69,19 @@ if(isset($_REQUEST['cancle'])){
             <td><?php echo $row['total_distance']?></td>
             <td><?php echo $row['luggage']?></td>
             <td><?php echo $row['total_fare']?></td>
-            <td><a href="userpendingrides.php?cancle=<?php echo $row['ride_id']?>">Cancle</a></td>
+            <td><a onClick="javascript: return confirm('Please confirm deletion');" href="userpendingrides.php?cancle=<?php echo $row['ride_id']?>">Cancle</a></td>
         </tr>
      <?php endwhile;?>
      <?php endif;?>
 </table>
 </div>
+</div>
+<div id="addfoot">
+        <a><i class="fa fa-facebook-square"></i></a>
+        <a><i class="fa fa-twitter-square"></i></a>
+        <a><i class="fa fa-instagram"></i></a>
+        <div id="copyright">© 2020 Copyright:
+            <a href="#">Cedcabs.com</a>
+        </div>
 </div>
 </html>

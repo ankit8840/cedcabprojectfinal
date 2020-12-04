@@ -300,8 +300,14 @@ class userrides extends Database{
         return $rides;
     }
     public function cancle($id){
-        $sql = "DELETE FROM `tbl_ride` WHERE `ride_id`= '$id' ";
-        $result = $this->conn->query($sql);
-        return $result;
+        $sql = "UPDATE tbl_ride SET `status`=3
+        WHERE `ride_id` = '$id' ";
+        $unblock = $this->conn->query($sql);
+        return $unblock;
+    }
+    function userridecancle($id){
+        $sql1="SELECT * FROM `tbl_ride`  WHERE `status`=3 AND `customer_user_id`= '$id' ";
+        $rides = $this->conn->query($sql1);
+        return $rides;
     }
 }

@@ -1,17 +1,30 @@
 <?php
 require 'class.php';
+if (!empty(isset($_SESSION['userdata']) && ($_SESSION['userdata']['name'] == 'admin'))) {
+    $user = $_SESSION['userdata']['name'];
+} else {
+    echo "<script>alert('Permission Denied')</script>";
+    header("Refresh:0; url=../login.php");
+}
 $conn1 = new Riderequests();
 $id=$_SESSION["userdata"]["userid"];
 $conn1->connect('localhost', 'root', '', 'newtasks');
-if(isset($_REQUEST['sort'])){
+if(isset($_REQUEST['sort']) && isset($_REQUEST['order'])){
     $sort=$_REQUEST['sort'];
-    
+    $order=$_REQUEST['order'];
 }else{
 
 $sort="ride_id";
-
+$order="asc";
 }
-$ride=$conn1->sortname($sort);
+if(isset($_REQUEST['filter'])){
+    $sort=$_REQUEST['filter'];
+}else{
+
+$sort="ride_id";
+$order="asc";
+}
+$ride=$conn1->sortname($sort,$order);
 ?>
 <?php require 'adminnav.html'?>
 <div id="tiles">
@@ -19,9 +32,24 @@ $ride=$conn1->sortname($sort);
     <div >
         <a href="#" id="sorta">Sort By</a>
             <div style="color:white;"class="sortby">
-                <a style="color:red;text-decoration:none;" href="booking.php?sort=pickup">Name</a>
-                <a style="color:red;text-decoration:none;" href="booking.php?sort=ride_date">Date</a>
-                <a style="color:red;text-decoration:none;" href="booking.php?sort=total_fare">Fare</a>
+                <a style="color:red;text-decoration:none;" id="date">Date</a>
+                <a style="color:red;text-decoration:none;" id="fare">Fare</a>
+            </div>
+            <div id="orderdate">
+                <a style="color:red;text-decoration:none;" href="booking.php?sort=ride_date&order=asc">Asscending</a>
+                <a style="color:red;text-decoration:none;" href="booking.php?sort=ride_date&order=desc">Descending</a>
+            </div>
+            <div id="orderfare">
+                <a style="color:red;text-decoration:none;" href="booking.php?sort=total_fare&order=asc">Asscending</a>
+                <a style="color:red;text-decoration:none;" href="booking.php?sort=total_fare&order=desc">Descending</a>
+            </div>
+    </div>
+    <div>
+        <a href="#" style="color:white;">Filter By</a>
+            <div class="sortby">
+                <a  style="color:red;text-decoration:none;" href="booking.php?filter=day">Day</a>
+                <a  style="color:red;text-decoration:none;" href="booking.php?filter=month">Month</a>
+                <a  style="color:red;text-decoration:none;" href="booking.php?filter=year">Year</a>
             </div>
     </div>
     <table id="usertbl">
@@ -50,9 +78,27 @@ $ride=$conn1->sortname($sort);
      <?php endif;?>
     </table>
 </div>
+<div id="addfoot" style="margin-top:1150px;">
+        <a><i class="fa fa-facebook-square"></i></a>
+        <a><i class="fa fa-twitter-square"></i></a>
+        <a><i class="fa fa-instagram"></i></a>
+        <div id="copyright">© 2020 Copyright:
+            <a href="#">Cedcabs.com</a>
+        </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-    function req(){
-        
-    }
-</script>
+    $(function () {
+    $("#orderdate").hide();
+    $("#orderfare").hide();
+    $("#date").click(function(){
+        $("#orderdate").show();
+        $("#orderfare").hide();
+    })
+    $("#fare").click(function(){
+        $("#orderfare").show();
+        $("#orderdate").hide();
+    })
+    });
+    </script>
 

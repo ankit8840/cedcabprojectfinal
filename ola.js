@@ -1,11 +1,19 @@
 $(function () {
     
     $("#weight").keypress(function (e) {
-        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+        if (e.which != 8 && e.which != 0 && e.which!=46 && (e.which < 48 || e.which > 57)) {
             $("#mss").html("Digits Only").show().fadeOut("slow");
             return false;
         }
     });
+    var original='';
+    $('#weight').on('input', function() {
+              if ($(this).val().replace(/[^.]/g, "").length > 1){
+            $(this).val(original); 
+          }else{
+           original = $(this).val();
+          }
+     });
     $("#cartype").change(function () {
         if ($(this).val() == "Micro") {
             $("#bags").hide();
@@ -90,7 +98,7 @@ $(function () {
                     if(r==true)
                     window.location.href = "login.php";
                     else
-                    window.location.href = "index.php";
+                    window.location.href = "logoutsession.php";
                 }
                 else{
                    window.location.href = "invoice.php";

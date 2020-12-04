@@ -1,20 +1,22 @@
 <?php
     require 'class.php';
     $con = new Location();
-    $action=0;
     $con->connect('localhost', 'root', '', 'newtasks');
     $loc=$con->select();
-    global $ten,$fifty,$hun;
+    global $ten,$fifty,$hun,$pickupkm,$dropkm,$pickup,$drop;
     $pickup=$_REQUEST["pickup"];
+    
     $drop=$_REQUEST["drop"];
     $cartype=$_REQUEST["cartype"];
     $weight=$_REQUEST["weight"];
-    if(isset($_POST['action']))
+    if(isset($_REQUEST['action']))
     $action=$_REQUEST["action"];
     if ($loc->num_rows>0){
         while ($row = $loc->fetch_assoc()) {
             if($row['loc_name']==$pickup){
+               
                 $pickupkm=$row['loc_distance'];
+                
             }
             if($row['loc_name']==$drop){
                 $dropkm=$row['loc_distance'];
@@ -185,7 +187,7 @@
         }
     }
     if(!empty($_SESSION['userdata'])) {
-        if ($action==1) {
+            if(isset($_REQUEST['action'])){
             $con1 = new Database();
             $con1->connect('localhost', 'root', '', 'newtasks');
             $userid=$_SESSION['userdata']['userid'];
@@ -193,17 +195,23 @@
             echo $pickup,$drop, $totaldistance, $weight, $fare, $userid;
                 $_SESSION['invoice']=array('pickup' => $pickup,
                 'drop'=>$drop,'distance'=>$totaldistance,'luggage'=>$weight,'fare'=>$fare);
+                if ($action==1) {
                 $fields = array('pickup', 'droploc', 'total_distance','luggage','total_fare','status','customer_user_id');
                 $data = array($pickup, $drop, $totaldistance, $weight, $fare, $status, $userid);
         
                 $res = $con1->insert($fields, $data, 'tbl_ride');
                 return $res;
 
-        }
-    }else{
+                }
+            }
+    }
+    else{
         $status=1;
-        $_SESSION['booking']=array('pickup' => $pickup,
-    'drop'=>$drop,'distance'=>$totaldistance,'luggage'=>$weight,'fare'=>$fare,'status'=>1,"time"=>time());
+        if(isset($action)){
+      
+        $_SESSION['booking']=array('pickup' => $pickup,'drop'=>$drop,'distance'=>$totaldistance,
+        'luggage'=>$weight,'fare'=>$fare,'status'=>1,"time"=>time());
+        }
     }
 
 ?>

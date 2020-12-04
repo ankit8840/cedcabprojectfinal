@@ -1,5 +1,11 @@
 <?php
 require 'class.php';
+if (!empty(isset($_SESSION['userdata']) && ($_SESSION['userdata']['name'] == 'admin'))) {
+    $user = $_SESSION['userdata']['name'];
+} else {
+    echo "<script>alert('Permission Denied')</script>";
+    header("Refresh:0; url=../login.php");
+}
 $id=$_SESSION['userdata']['userid'];
 $name=$_SESSION['userdata']['name'];
 $con = new showuser();
@@ -29,10 +35,10 @@ if(isset($_POST['update'])){
      <?php while ($row = $loc->fetch_assoc()) :?>
      <form method="POST">
         <tr>
-            <td><input id="userid" type="text" value=<?php echo $row['user_id']?> name="userid" size="2"></td>
-            <td><input id="username" type="text" value=<?php echo $row['user_name']?> name="username" size="10"></td>
-            <td><input type="text"  pattern="[A-Za-z]{1,}" value=<?php echo $row['name']?> name="name1" size="10" required></td>
-            <td><input type="text" id="mobile" value=<?php echo $row['mobile']?> name="mobile" size="10" required></td>
+            <td><?php echo $row['user_id']?><input id="userid" value=<?php echo $row['user_id']?> name="userid" size="2" hidden></td>
+            <td><?php echo $row['user_name']?><input id="username" value=<?php echo $row['user_name']?> name="username" size="10" hidden></td>
+            <td><?php echo $row['name']?><input id="name" type="text"  pattern="[A-Za-z]{1,}" value=<?php echo $row['name']?> name="name1" size="10" hidden></td>
+            <td><input type="text" id="mobile" pattern="[1-9]{1}[0-9]{9}" value=<?php echo $row['mobile']?> name="mobile" size="10" required></td>
             <td><input type="password" value=<?php echo $row['password']?> name="password" size="5" required></td>
             <td><input type="submit" value="UPDATE" name="update"></td>
         </tr>
@@ -41,11 +47,20 @@ if(isset($_POST['update'])){
      <?php endif;?>
 </table>
      </div>
+     <div id="addfoot">
+        <a><i class="fa fa-facebook-square"></i></a>
+        <a><i class="fa fa-twitter-square"></i></a>
+        <a><i class="fa fa-instagram"></i></a>
+        <div id="copyright">© 2020 Copyright:
+            <a href="#">Cedcabs.com</a>
+        </div>
+</div>
      </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     document.getElementById("userid").readOnly = true; 
     document.getElementById("username").readOnly = true; 
+    document.getElementById("name").readOnly = true; 
         $(function () {
             
             $("#mobile").keypress(function (e) {

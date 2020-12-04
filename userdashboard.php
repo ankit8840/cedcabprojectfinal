@@ -72,4 +72,12 @@ if(isset($_SESSION['booking'])){
 <div class="tile1">
 <a href="useraccount.php"><i class="fa fa-hourglass-1" style="font-size:36px"></i><br><br><span class="count"></span><br>Account</a></div>
 </div>
+<div id="addfoot">
+        <a><i class="fa fa-facebook-square"></i></a>
+        <a><i class="fa fa-twitter-square"></i></a>
+        <a><i class="fa fa-instagram"></i></a>
+        <div id="copyright">© 2020 Copyright:
+            <a href="#">Cedcabs.com</a>
+        </div>
+</div>
 </html>

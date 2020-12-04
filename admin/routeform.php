@@ -1,5 +1,11 @@
 <?php 
 require 'class.php';
+if (!empty(isset($_SESSION['userdata']) && ($_SESSION['userdata']['name'] == 'admin'))) {
+    $user = $_SESSION['userdata']['name'];
+} else {
+    echo "<script>alert('Permission Denied')</script>";
+    header("Refresh:0; url=../login.php");
+}
 $con = new Database();
 $con->connect('localhost', 'root', '', 'newtasks');
 $msg = '';
@@ -31,7 +37,7 @@ if (isset($_POST["submit"])) {
             <form action="" method="POST">
                 <p>
                     <label for="username">RouteName: 
-                        <input type="text" name="routename"  pattern="[A-Za-z]{1,}" required>
+                        <input type="text" name="routename"  pattern="[a-zA-Z0-9\s]+" required>
                     </label>
                 </p>
                 <p>
@@ -45,6 +51,14 @@ if (isset($_POST["submit"])) {
                 
             </form>
     </div>
+</div>
+<div id="addfoot">
+        <a><i class="fa fa-facebook-square"></i></a>
+        <a><i class="fa fa-twitter-square"></i></a>
+        <a><i class="fa fa-instagram"></i></a>
+        <div id="copyright">© 2020 Copyright:
+            <a href="#">Cedcabs.com</a>
+        </div>
 </div>
 </body>
 <script>
