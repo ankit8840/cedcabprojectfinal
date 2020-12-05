@@ -82,24 +82,78 @@ class Location extends Database
 }
 class Ride extends Database
 {
-    public function select()
+    public function selectall($sort,$order)
     {
-        $user="user";
-        $sql="SELECT * FROM tbl_user  WHERE `is_admin`= '$user' ";
-        $result = $this->conn->query($sql);
-        return $result;
+       
+        if(($order=="asc") && ($sort=='name'|| $sort=='date')){
+            $sql="SELECT * FROM tbl_user WHERE `is_admin`='user'  ORDER BY  `$sort` asc ";
+            $result = $this->conn->query($sql);
+            return $result;
+            }
+            if($order=="desc" && ($sort=='name'|| $sort=='date')){
+                $sql="SELECT * FROM tbl_user WHERE `is_admin`= 'user'  ORDER BY  `$sort` desc ";
+                $result = $this->conn->query($sql);
+                return $result;   
+            }
+            if ($sort == 'day') {
+                $result = mysqli_query($this->conn, "SELECT * FROM tbl_user WHERE `is_admin`= 'user' AND `date`> DATE_SUB(curdate(),INTERVAL 1 DAY)");
+    
+            } elseif ($sort == 'month') {
+                $result = mysqli_query($this->conn, "SELECT * FROM tbl_user WHERE `is_admin`= 'user' AND  `date`> DATE_SUB(curdate(),INTERVAL 1 MONTH)");
+            } elseif ($sort == 'year') {
+                $result = mysqli_query($this->conn, "SELECT * FROM tbl_user WHERE `is_admin`= 'user' AND  `date`> DATE_SUB(curdate(),INTERVAL 1 YEAR)");
+            } else {
+                $result = mysqli_query($this->conn, "SELECT * FROM tbl_user WHERE `is_admin`= 'user' ");
+            }
+           return $result;
     }
-    public function pendinguser()
+    public function pendinguser($sort,$order)
     {
-        $sql1="SELECT * FROM `tbl_user` WHERE `isblock`=0";
-        $rides = $this->conn->query($sql1);
-        return $rides;
+        if(($order=="asc") && ($sort=='name'|| $sort=='date')){
+            $sql="SELECT * FROM tbl_user WHERE `isblock`=0  ORDER BY  `$sort` asc ";
+            $result = $this->conn->query($sql);
+            return $result;
+            }
+            if($order=="desc" && ($sort=='name'|| $sort=='date')){
+                $sql="SELECT * FROM tbl_user WHERE `isblock`=0  ORDER BY  `$sort` desc ";
+                $result = $this->conn->query($sql);
+                return $result;   
+            }
+            if ($sort == 'day') {
+                $result = mysqli_query($this->conn, "SELECT * FROM tbl_user WHERE `isblock`=0 AND `date`> DATE_SUB(curdate(),INTERVAL 1 DAY)");
+    
+            } elseif ($sort == 'month') {
+                $result = mysqli_query($this->conn, "SELECT * FROM tbl_user WHERE `isblock`=0 AND  `date`> DATE_SUB(curdate(),INTERVAL 1 MONTH)");
+            } elseif ($sort == 'year') {
+                $result = mysqli_query($this->conn, "SELECT * FROM tbl_user WHERE `isblock`=0 AND  `date`> DATE_SUB(curdate(),INTERVAL 1 YEAR)");
+            } else {
+                $result = mysqli_query($this->conn, "SELECT * FROM tbl_user WHERE `isblock`=0");
+            }
+           return $result;
     }
-    public function approveduser()
+    public function approveduser($sort,$order)
     {
-        $sql1="SELECT * FROM `tbl_user` WHERE `isblock`=1";
-        $rides = $this->conn->query($sql1);
-        return $rides;
+        if(($order=="asc") && ($sort=='name'|| $sort=='date')){
+            $sql="SELECT * FROM tbl_user WHERE `isblock`=1  ORDER BY  `$sort` asc ";
+            $result = $this->conn->query($sql);
+            return $result;
+            }
+            if($order=="desc" && ($sort=='name'|| $sort=='date')){
+                $sql="SELECT * FROM tbl_user WHERE `isblock`=1  ORDER BY  `$sort` desc ";
+                $result = $this->conn->query($sql);
+                return $result;   
+            }
+            if ($sort == 'day') {
+                $result = mysqli_query($this->conn, "SELECT * FROM tbl_user WHERE `isblock`=1 AND `date`> DATE_SUB(curdate(),INTERVAL 1 DAY)");
+    
+            } elseif ($sort == 'month') {
+                $result = mysqli_query($this->conn, "SELECT * FROM tbl_user WHERE `isblock`=1 AND  `date`> DATE_SUB(curdate(),INTERVAL 1 MONTH)");
+            } elseif ($sort == 'year') {
+                $result = mysqli_query($this->conn, "SELECT * FROM tbl_user WHERE `isblock`=1 AND  `date`> DATE_SUB(curdate(),INTERVAL 1 YEAR)");
+            } else {
+                $result = mysqli_query($this->conn, "SELECT * FROM tbl_user WHERE `isblock`=1");
+            }
+           return $result;
     }
     public function accept($id){
         $sql = "UPDATE tbl_user SET `isblock`=1
@@ -173,7 +227,7 @@ class Riderequests extends Database{
     }
     public function sortname($sort,$order)
     {
-        if($order=="asc" && ($sort=='ride_date'|| $sort=='total_fare')){
+        if(($order=="asc") && ($sort=='ride_date'|| $sort=='total_fare')){
         $sql="SELECT * FROM tbl_ride  ORDER BY  `$sort` asc ";
         $result = $this->conn->query($sql);
         return $result;
@@ -196,10 +250,35 @@ class Riderequests extends Database{
        return $result;
             
     }
-    function ridereq(){
-    $sql1="SELECT * FROM `tbl_ride`  WHERE `status`=1";
-        $rides = $this->conn->query($sql1);
-        return $rides;
+    // function ridereq(){
+    // $sql1="SELECT * FROM `tbl_ride`  WHERE `status`=1";
+    //     $rides = $this->conn->query($sql1);
+    //     return $rides;
+    // }
+    public function ridereq($sort,$order)
+    {
+        if(($order=="asc") && ($sort=='ride_date'|| $sort=='total_fare')){
+        $sql="SELECT * FROM tbl_ride WHERE `status`=1 ORDER BY  `$sort` asc ";
+        $result = $this->conn->query($sql);
+        return $result;
+        }
+        if($order=="desc" && ($sort=='ride_date'|| $sort=='total_fare')){
+            $sql="SELECT * FROM tbl_ride WHERE `status`=1 ORDER BY  `$sort` desc ";
+            $result = $this->conn->query($sql);
+            return $result;   
+        }
+        if ($sort == 'day') {
+            $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE `status`=1 AND  `ride_date`> DATE_SUB(curdate(),INTERVAL 1 DAY)");
+
+        } elseif ($sort == 'month') {
+            $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE `status`=1 AND `ride_date`> DATE_SUB(curdate(),INTERVAL 1 MONTH)");
+        } elseif ($sort == 'year') {
+            $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE `status`=1 AND `ride_date`> DATE_SUB(curdate(),INTERVAL 1 YEAR)");
+        } else {
+            $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE `status`=1" );
+        }
+       return $result;
+            
     }
     public function pending($id){
         $sql = "UPDATE tbl_ride SET `status`=2
@@ -213,25 +292,53 @@ class Riderequests extends Database{
         $unblock = $this->conn->query($sql);
         return $unblock;
     }
-    public function completerides($sort)
+    public function completerides($sort,$order)
     {
-        if ($sort == 'day') {
-            $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE  `ride_date`> DATE_SUB(curdate(),INTERVAL 1 DAY) AND `status`=2 ");
-        } elseif ($sort == 'month') {
-            $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE  `ride_date`> DATE_SUB(curdate(),INTERVAL 1 MONTH) AND `status`=2 ");
-        } elseif ($sort == 'year') {
-            $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE  `ride_date`> DATE_SUB(curdate(),INTERVAL 1 YEAR) AND `status`=2 ");
-        } else {
-            $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE `status`=2  ");
-        }
-       
+        if(($order=="asc") && ($sort=='ride_date'|| $sort=='total_fare')){
+            $sql="SELECT * FROM tbl_ride WHERE `status`=2 ORDER BY  `$sort` asc ";
+            $result = $this->conn->query($sql);
             return $result;
+            }
+            if($order=="desc" && ($sort=='ride_date'|| $sort=='total_fare')){
+                $sql="SELECT * FROM tbl_ride WHERE `status`=2 ORDER BY  `$sort` desc ";
+                $result = $this->conn->query($sql);
+                return $result;   
+            }
+            if ($sort == 'day') {
+                $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE `status`=2 AND  `ride_date`> DATE_SUB(curdate(),INTERVAL 1 DAY)");
+    
+            } elseif ($sort == 'month') {
+                $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE `status`=2 AND `ride_date`> DATE_SUB(curdate(),INTERVAL 1 MONTH)");
+            } elseif ($sort == 'year') {
+                $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE `status`=2 AND `ride_date`> DATE_SUB(curdate(),INTERVAL 1 YEAR)");
+            } else {
+                $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE `status`=2" );
+            }
+           return $result;
         
     }
-    public function canclerides(){
-        $sql1="SELECT * FROM `tbl_ride`  WHERE `status`=0";
-        $rides = $this->conn->query($sql1);
-        return $rides;
+    public function canclerides($sort,$order){
+        if(($order=="asc") && ($sort=='ride_date'|| $sort=='total_fare')){
+            $sql="SELECT * FROM tbl_ride WHERE `status`=0 ORDER BY  `$sort` asc ";
+            $result = $this->conn->query($sql);
+            return $result;
+            }
+            if($order=="desc" && ($sort=='ride_date'|| $sort=='total_fare')){
+                $sql="SELECT * FROM tbl_ride WHERE `status`=0 ORDER BY  `$sort` desc ";
+                $result = $this->conn->query($sql);
+                return $result;   
+            }
+            if ($sort == 'day') {
+                $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE `status`=0 AND  `ride_date`> DATE_SUB(curdate(),INTERVAL 1 DAY)");
+    
+            } elseif ($sort == 'month') {
+                $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE `status`=0 AND `ride_date`> DATE_SUB(curdate(),INTERVAL 1 MONTH)");
+            } elseif ($sort == 'year') {
+                $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE `status`=0 AND `ride_date`> DATE_SUB(curdate(),INTERVAL 1 YEAR)");
+            } else {
+                $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE `status`=0" );
+            }
+           return $result;
     }
     public function userinvoice($id){
         $sql1="SELECT * FROM `tbl_ride`  WHERE `ride_id`='$id' AND `status`=2";
@@ -294,20 +401,102 @@ class Totals extends Database{
     }
 }
 class userrides extends Database{
-    function ridereq($id){
-        $sql1="SELECT * FROM `tbl_ride`  WHERE `status`=1 AND `customer_user_id`= '$id' ";
-        $rides = $this->conn->query($sql1);
-        return $rides;
+    function ridereq($sort,$order,$id){
+    if(($order=="asc") && ($sort=='name'|| $sort=='date')){
+        $sql="SELECT * FROM tbl_ride WHERE `status`=1 AND `customer_user_id`= '$id' ORDER BY  `$sort` asc ";
+        $result = $this->conn->query($sql);
+        return $result;
+        }
+        if($order=="desc" && ($sort=='name'|| $sort=='date')){
+            $sql="SELECT * FROM tbl_ride WHERE `status`=1 AND `customer_user_id`= '$id'  ORDER BY  `$sort` desc ";
+            $result = $this->conn->query($sql);
+            return $result;   
+        }
+        if ($sort == 'day') {
+            $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE `status`=1 AND `customer_user_id`= '$id' AND `ride_date`> DATE_SUB(curdate(),INTERVAL 1 DAY)");
+
+        } elseif ($sort == 'month') {
+            $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE `status`=1 AND `customer_user_id`= '$id' AND  `ride_date`> DATE_SUB(curdate(),INTERVAL 1 MONTH)");
+        } elseif ($sort == 'year') {
+            $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE `status`=1 AND `customer_user_id`= '$id' AND  `ride_date`> DATE_SUB(curdate(),INTERVAL 1 YEAR)");
+        } else {
+            $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE `status`=1 AND `customer_user_id`='$id' ");
+
+        }
+       return $result;
     }
-    function ride($id){
-        $sql1="SELECT * FROM `tbl_ride`  WHERE `customer_user_id`= '$id' ";
-        $rides = $this->conn->query($sql1);
-        return $rides;
+    function ride($sort,$order,$id){
+        if(($order=="asc") && ($sort=='name'|| $sort=='date')){
+            $sql="SELECT * FROM tbl_ride WHERE `customer_user_id`= '$id' ORDER BY  `$sort` asc ";
+            $result = $this->conn->query($sql);
+            return $result;
+            }
+            if($order=="desc" && ($sort=='name'|| $sort=='date')){
+                $sql="SELECT * FROM tbl_ride WHERE `customer_user_id`= '$id'  ORDER BY  `$sort` desc ";
+                $result = $this->conn->query($sql);
+                return $result;   
+            }
+            if ($sort == 'day') {
+                $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE  `customer_user_id`= '$id' AND `ride_date`> DATE_SUB(curdate(),INTERVAL 1 DAY)");
+    
+            } elseif ($sort == 'month') {
+                $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE `customer_user_id`= '$id' AND  `ride_date`> DATE_SUB(curdate(),INTERVAL 1 MONTH)");
+            } elseif ($sort == 'year') {
+                $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE  `customer_user_id`= '$id' AND  `ride_date`> DATE_SUB(curdate(),INTERVAL 1 YEAR)");
+            } else {
+                $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE `customer_user_id`='$id' ");
+                
+            }
+           return $result;
     }
-    function ridecom($id){
-        $sql1="SELECT * FROM `tbl_ride`  WHERE `status`=2 AND `customer_user_id`= '$id' ";
-        $rides = $this->conn->query($sql1);
-        return $rides;
+    function ridecom($sort,$order,$id){
+
+        if(($order=="asc") && ($sort=='name'|| $sort=='date')){
+            $sql="SELECT * FROM tbl_ride WHERE `status`=2 AND `customer_user_id`= '$id' ORDER BY  `$sort` asc ";
+            $result = $this->conn->query($sql);
+            return $result;
+            }
+            if($order=="desc" && ($sort=='name'|| $sort=='date')){
+                $sql="SELECT * FROM tbl_ride WHERE `status`=2 AND `customer_user_id`= '$id'  ORDER BY  `$sort` desc ";
+                $result = $this->conn->query($sql);
+                return $result;   
+            }
+            if ($sort == 'day') {
+                $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE `status`=2 AND `customer_user_id`= '$id' AND `ride_date`> DATE_SUB(curdate(),INTERVAL 1 DAY)");
+    
+            } elseif ($sort == 'month') {
+                $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE `status`=2 AND `customer_user_id`= '$id' AND  `ride_date`> DATE_SUB(curdate(),INTERVAL 1 MONTH)");
+            } elseif ($sort == 'year') {
+                $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE `status`=2 AND `customer_user_id`= '$id' AND  `ride_date`> DATE_SUB(curdate(),INTERVAL 1 YEAR)");
+            } else {
+                $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE `status`=2 AND `customer_user_id`='$id' ");
+                
+            }
+           return $result;
+    }
+    function userridecancle($id){
+        if(($order=="asc") && ($sort=='name'|| $sort=='date')){
+            $sql="SELECT * FROM tbl_ride WHERE `status`=3 AND `customer_user_id`= '$id' ORDER BY  `$sort` asc ";
+            $result = $this->conn->query($sql);
+            return $result;
+            }
+            if($order=="desc" && ($sort=='name'|| $sort=='date')){
+                $sql="SELECT * FROM tbl_ride WHERE `status`=3 AND `customer_user_id`= '$id'  ORDER BY  `$sort` desc ";
+                $result = $this->conn->query($sql);
+                return $result;   
+            }
+            if ($sort == 'day') {
+                $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE `status`=3 AND `customer_user_id`= '$id' AND `ride_date`> DATE_SUB(curdate(),INTERVAL 1 DAY)");
+    
+            } elseif ($sort == 'month') {
+                $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE `status`=3 AND `customer_user_id`= '$id' AND  `ride_date`> DATE_SUB(curdate(),INTERVAL 1 MONTH)");
+            } elseif ($sort == 'year') {
+                $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE `status`=3 AND `customer_user_id`= '$id' AND  `ride_date`> DATE_SUB(curdate(),INTERVAL 1 YEAR)");
+            } else {
+                $result = mysqli_query($this->conn, "SELECT * FROM tbl_ride WHERE `status`=3 AND `customer_user_id`='$id' ");
+                
+            }
+           return $result;
     }
     function ridecancle($id){
         $sql1="SELECT * FROM `tbl_ride`  WHERE `status`=0 AND `customer_user_id`= '$id' ";

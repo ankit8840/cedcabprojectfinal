@@ -4,7 +4,26 @@ $name=$_SESSION["userdata"]["name"];
 $conn1 = new userrides();
 $id=$_SESSION["userdata"]["userid"];
 $conn1->connect('localhost', 'root', '', 'newtasks');
-$requst=$conn1->userridecancle($id);
+if(isset($_REQUEST['sort']) && isset($_REQUEST['order'])){
+    $sort=$_REQUEST['sort'];
+    $order=$_REQUEST['order'];
+    $id=$_SESSION["userdata"]["userid"];
+}
+else{
+
+    $sort="user_id";
+    $order="asc";
+    $id=$_SESSION["userdata"]["userid"];
+    }
+if(isset($_REQUEST['filter'])){
+    $sort=$_REQUEST['filter'];
+    $order="asc";
+    $id=$_SESSION["userdata"]["userid"];
+}
+if(isset($_REQUEST['clear'])){
+    $requst=$conn1->userridecancle($sort,$order,$id);
+}
+$requst=$conn1->userridecancle($sort,$order,$id);
 ?>
 <!DOCTYPE html>
 <html>
@@ -42,6 +61,31 @@ $requst=$conn1->userridecancle($id);
 <div id="tiles">
 <div id="ridereq">
     <h1 style="color:white">Cancle Rides</h1>
+    <div style="display:inline-block">
+        <a href="#" id="sorta">Sort By</a>
+            <div style="color:white;"class="sortby">
+                <a style="color:red;text-decoration:none;cursor:pointer" id="date">Date</a>
+                <a style="color:red;text-decoration:none;cursor:pointer" id="fare">Name</a>
+            </div>
+            <div id="orderdate">
+                <a style="color:red;text-decoration:none;" href="usercanclerides.php?sort=ride_date&order=asc">Asscending</a>
+                <a style="color:red;text-decoration:none;" href="usercanclerides.php?sort=ride_date&order=desc">Descending</a>
+            </div>
+            <div id="orderfare">
+                <a style="color:red;text-decoration:none;" href="usercanclerides.php?sort=total_fare&order=asc">Asscending</a>
+                <a style="color:red;text-decoration:none;" href="usercanclerides.php?sort=total_fare&order=desc">Descending</a>
+            </div>
+    </div>
+    <div>
+        <a href="#" style="color:black;display:inline-block;float:left;padding:5px;">Filter By</a>
+            <div class="sortby">
+                <a  style="color:red;text-decoration:none;float:left;padding:5px;" href="usercanclerides.php?filter=day">Day</a>
+                <a  style="color:red;text-decoration:none;float:left;padding:5px;" href="usercanclerides.php?filter=month">Month</a>
+                <a  style="color:red;text-decoration:none;float:left;padding:5px;" href="usercanclerides.php?filter=year">Year</a>
+                <a style="color:red;text-decoration:none;float:right;padding:5px;" href="usercanclerides.php?clear=all">clear Filter</a>
+            </div>
+        
+    </div>
     <table id="tiletab" style="margin-left:50px;">
     <tr>
         <td>RideID</td>
@@ -77,4 +121,19 @@ $requst=$conn1->userridecancle($id);
             <a href="#">Cedcabs.com</a>
         </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(function () {
+    $("#orderdate").hide();
+    $("#orderfare").hide();
+    $("#date").click(function(){
+        $("#orderdate").show();
+        $("#orderfare").hide();
+    })
+    $("#fare").click(function(){
+        $("#orderfare").show();
+        $("#orderdate").hide();
+    })
+    });
+    </script>
 </html>

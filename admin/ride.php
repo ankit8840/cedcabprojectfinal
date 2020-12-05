@@ -7,23 +7,63 @@ if (!empty(isset($_SESSION['userdata']) && ($_SESSION['userdata']['name'] == 'ad
     header("Refresh:0; url=../login.php");
 }
 $conn1 = new Ride();
-
 $conn1->connect('localhost', 'root', '', 'newtasks');
-$ride=$conn1->select();
+if(isset($_REQUEST['sort']) && isset($_REQUEST['order'])){
+    $sort=$_REQUEST['sort'];
+    $order=$_REQUEST['order'];
+}
+else{
+
+    $sort="user_id";
+    $order="asc";
+    }
+if(isset($_REQUEST['filter'])){
+    $sort=$_REQUEST['filter'];
+    $order="asc";
+}
+if(isset($_REQUEST['clear'])){
+    $ride=$conn1->selectall($sort,$order);
+}
+$ride=$conn1->selectall($sort,$order);
 if(isset($_REQUEST['rn'])){
     $id=$_REQUEST['rn'];
-    $requst=$conn1->accept($id);
+    $ride=$conn1->accept($id);
     header("Refresh:0; url=ride.php");
 }
 if(isset($_REQUEST['gn'])){
     $id=$_REQUEST['gn'];
-    $requst=$conn1->cancle($id);
+    $ride=$conn1->cancle($id);
     header("Refresh:0; url=ride.php");
 }
 ?>
 <?php require 'adminnav.html'?>
 <div id="tiles">
     <h1 style="color:white">All Users</h1>
+    <div style="display:inline-block">
+        <a href="#" id="sorta">Sort By</a>
+            <div style="color:white;"class="sortby">
+                <a style="color:red;text-decoration:none;cursor:pointer" id="date">Date</a>
+                <a style="color:red;text-decoration:none;cursor:pointer" id="fare">Name</a>
+            </div>
+            <div id="orderdate">
+                <a style="color:red;text-decoration:none;" href="ride.php?sort=date&order=asc">Asscending</a>
+                <a style="color:red;text-decoration:none;" href="ride.php?sort=date&order=desc">Descending</a>
+            </div>
+            <div id="orderfare">
+                <a style="color:red;text-decoration:none;" href="ride.php?sort=name&order=asc">Asscending</a>
+                <a style="color:red;text-decoration:none;" href="ride.php?sort=name&order=desc">Descending</a>
+            </div>
+    </div>
+    <div>
+        <a href="#" style="color:black;display:inline-block;float:left;padding:5px;">Filter By</a>
+            <div class="sortby">
+                <a  style="color:red;text-decoration:none;float:left;padding:5px;" href="ride.php?filter=day">Day</a>
+                <a  style="color:red;text-decoration:none;float:left;padding:5px;" href="ride.php?filter=month">Month</a>
+                <a  style="color:red;text-decoration:none;float:left;padding:5px;" href="ride.php?filter=year">Year</a>
+                <a style="color:red;text-decoration:none;float:right;padding:5px;" href="ride.php?clear=all">clear Filter</a>
+            </div>
+        
+    </div>
     <table>
         <tr>
             <td>UserID</td>
@@ -49,8 +89,6 @@ if(isset($_REQUEST['gn'])){
                     }
                  else echo "Pending";?>
             </td>
-                <!-- <td><a href="ride.php?rn=<?php echo $row['user_id']?>">Approved</a></td>
-                <td><a href="ride.php?gn=<?php echo $row['user_id']?>">Cancle</a></td> -->
             </tr>
         <?php endwhile;?>
         <?php endif;?>
@@ -64,9 +102,20 @@ if(isset($_REQUEST['gn'])){
             <a href="#">Cedcabs.com</a>
         </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-    function req(){
-        
-    }
-</script>
+    $(function () {
+    $("#orderdate").hide();
+    $("#orderfare").hide();
+    $("#date").click(function(){
+        $("#orderdate").show();
+        $("#orderfare").hide();
+    })
+    $("#fare").click(function(){
+        $("#orderfare").show();
+        $("#orderdate").hide();
+    })
+    });
+    </script>
+
 

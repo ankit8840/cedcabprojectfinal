@@ -12,28 +12,29 @@ $conn1->connect('localhost', 'root', '', 'newtasks');
 if(isset($_REQUEST['sort']) && isset($_REQUEST['order'])){
     $sort=$_REQUEST['sort'];
     $order=$_REQUEST['order'];
-}else{
-
-$sort="ride_id";
-$order="asc";
 }
+else{
+
+    $sort="ride_id";
+    $order="asc";
+    }
 if(isset($_REQUEST['filter'])){
     $sort=$_REQUEST['filter'];
-}else{
-
-$sort="ride_id";
-$order="asc";
+    $order="asc";
+}
+if(isset($_REQUEST['clear'])){
+    $ride=$conn1->sortname($sort,$order);
 }
 $ride=$conn1->sortname($sort,$order);
 ?>
 <?php require 'adminnav.html'?>
 <div id="tiles">
     <h1 style="color:white">All Rides</h1>
-    <div >
+    <div style="display:inline-block">
         <a href="#" id="sorta">Sort By</a>
             <div style="color:white;"class="sortby">
-                <a style="color:red;text-decoration:none;" id="date">Date</a>
-                <a style="color:red;text-decoration:none;" id="fare">Fare</a>
+                <a style="color:red;text-decoration:none;cursor:pointer" id="date">Date</a>
+                <a style="color:red;text-decoration:none;cursor:pointer" id="fare">Fare</a>
             </div>
             <div id="orderdate">
                 <a style="color:red;text-decoration:none;" href="booking.php?sort=ride_date&order=asc">Asscending</a>
@@ -45,13 +46,16 @@ $ride=$conn1->sortname($sort,$order);
             </div>
     </div>
     <div>
-        <a href="#" style="color:white;">Filter By</a>
+        <a href="#" style="color:black;display:inline-block;float:left;padding:5px;">Filter By</a>
             <div class="sortby">
-                <a  style="color:red;text-decoration:none;" href="booking.php?filter=day">Day</a>
-                <a  style="color:red;text-decoration:none;" href="booking.php?filter=month">Month</a>
-                <a  style="color:red;text-decoration:none;" href="booking.php?filter=year">Year</a>
+                <a  style="color:red;text-decoration:none;float:left;padding:5px;" href="booking.php?filter=day">Day</a>
+                <a  style="color:red;text-decoration:none;float:left;padding:5px;" href="booking.php?filter=month">Month</a>
+                <a  style="color:red;text-decoration:none;float:left;padding:5px;" href="booking.php?filter=year">Year</a>
+                <a style="color:red;text-decoration:none;float:right;padding:5px;" href="booking.php?clear=all">clear Filter</a>
             </div>
+        
     </div>
+   
     <table id="usertbl">
     <tr>
         <td>RideID</td>

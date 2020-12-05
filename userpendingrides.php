@@ -1,10 +1,29 @@
 <?php 
-require 'class.php';
+require 'admin/class.php';
 $name=$_SESSION["userdata"]["name"];
 $conn1 = new userrides();
 $id=$_SESSION["userdata"]["userid"];
 $conn1->connect('localhost', 'root', '', 'newtasks');
-$requst=$conn1->ridereq($id);
+if(isset($_REQUEST['sort']) && isset($_REQUEST['order'])){
+    $sort=$_REQUEST['sort'];
+    $order=$_REQUEST['order'];
+    $id=$_SESSION["userdata"]["userid"];
+}
+else{
+
+    $sort="user_id";
+    $order="asc";
+    $id=$_SESSION["userdata"]["userid"];
+    }
+if(isset($_REQUEST['filter'])){
+    $sort=$_REQUEST['filter'];
+    $order="asc";
+    $id=$_SESSION["userdata"]["userid"];
+}
+if(isset($_REQUEST['clear'])){
+    $requst=$conn1->ridereq($sort,$order,$id);
+}
+$requst=$conn1->ridereq($sort,$order,$id);
 if(isset($_REQUEST['cancle'])){
     $rid=$_REQUEST['cancle'];
     $requst=$conn1->cancle($rid);  
@@ -47,6 +66,31 @@ if(isset($_REQUEST['cancle'])){
 <div id="tiles">
 <div id="ridereq">
     <h1 style="color:white">Pending Ride Request</h1>
+    <div style="display:inline-block">
+        <a href="#" id="sorta">Sort By</a>
+            <div style="color:white;"class="sortby">
+                <a style="color:red;text-decoration:none;cursor:pointer" id="date">Date</a>
+                <a style="color:red;text-decoration:none;cursor:pointer" id="fare">Name</a>
+            </div>
+            <div id="orderdate">
+                <a style="color:red;text-decoration:none;" href="userpendingrides.php?sort=ride_date&order=asc">Asscending</a>
+                <a style="color:red;text-decoration:none;" href="userpendingrides.php?sort=ride_date&order=desc">Descending</a>
+            </div>
+            <div id="orderfare">
+                <a style="color:red;text-decoration:none;" href="userpendingrides.php?sort=total_fare&order=asc">Asscending</a>
+                <a style="color:red;text-decoration:none;" href="userpendingrides.php?sort=total_fare&order=desc">Descending</a>
+            </div>
+    </div>
+    <div>
+        <a href="#" style="color:black;display:inline-block;float:left;padding:5px;">Filter By</a>
+            <div class="sortby">
+                <a  style="color:red;text-decoration:none;float:left;padding:5px;" href="userpendingrides.php?filter=day">Day</a>
+                <a  style="color:red;text-decoration:none;float:left;padding:5px;" href="userpendingrides.php?filter=month">Month</a>
+                <a  style="color:red;text-decoration:none;float:left;padding:5px;" href="userpendingrides.php?filter=year">Year</a>
+                <a style="color:red;text-decoration:none;float:right;padding:5px;" href="userpendingrides.php?clear=all">clear Filter</a>
+            </div>
+        
+    </div>
     <table id="tiletab" style="margin-left:50px;">
     <tr>
         <td>RideID</td>
@@ -85,3 +129,18 @@ if(isset($_REQUEST['cancle'])){
         </div>
 </div>
 </html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(function () {
+    $("#orderdate").hide();
+    $("#orderfare").hide();
+    $("#date").click(function(){
+        $("#orderdate").show();
+        $("#orderfare").hide();
+    })
+    $("#fare").click(function(){
+        $("#orderfare").show();
+        $("#orderdate").hide();
+    })
+    });
+    </script>

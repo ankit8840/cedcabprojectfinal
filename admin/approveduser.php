@@ -9,12 +9,53 @@ if (!empty(isset($_SESSION['userdata']) && ($_SESSION['userdata']['name'] == 'ad
 $conn1 = new Ride();
 
 $conn1->connect('localhost', 'root', '', 'newtasks');
-$ride=$conn1->approveduser();
+if(isset($_REQUEST['sort']) && isset($_REQUEST['order'])){
+    $sort=$_REQUEST['sort'];
+    $order=$_REQUEST['order'];
+}
+else{
+
+    $sort="user_id";
+    $order="asc";
+    }
+if(isset($_REQUEST['filter'])){
+    $sort=$_REQUEST['filter'];
+    $order="asc";
+}
+if(isset($_REQUEST['clear'])){
+    $ride=$conn1->approveduser($sort,$order);
+}
+$ride=$conn1->approveduser($sort,$order);
 
 ?>
 <?php require 'adminnav.html'?>
 <div id="tiles">
     <h1 style="color:white">Approved User Request</h1>
+    <div style="display:inline-block">
+        <a href="#" id="sorta">Sort By</a>
+            <div style="color:white;"class="sortby">
+                <a style="color:red;text-decoration:none;cursor:pointer" id="date">Date</a>
+                <a style="color:red;text-decoration:none;cursor:pointer" id="fare">Name</a>
+            </div>
+            <div id="orderdate">
+                <a style="color:red;text-decoration:none;" href="approveduser.php?sort=date&order=asc">Asscending</a>
+                <a style="color:red;text-decoration:none;" href="approveduser.php?sort=date&order=desc">Descending</a>
+            </div>
+            <div id="orderfare">
+                <a style="color:red;text-decoration:none;" href="approveduser.php?sort=name&order=asc">Asscending</a>
+                <a style="color:red;text-decoration:none;" href="approveduser.php?sort=name&order=desc">Descending</a>
+            </div>
+    </div>
+    <div>
+        <a href="#" style="color:black;display:inline-block;float:left;padding:5px;">Filter By</a>
+            <div class="sortby">
+                <a  style="color:red;text-decoration:none;float:left;padding:5px;" href="approveduser.php?filter=day">Day</a>
+                <a  style="color:red;text-decoration:none;float:left;padding:5px;" href="approveduser.php?filter=month">Month</a>
+                <a  style="color:red;text-decoration:none;float:left;padding:5px;" href="approveduser.php?filter=year">Year</a>
+                <a style="color:red;text-decoration:none;float:right;padding:5px;" href="approveduser.php?clear=all">clear Filter</a>
+            </div>
+        
+    </div>
     <table style="margin-left:50px;">
         <tr>
             <td>UserID</td>
@@ -45,9 +86,19 @@ $ride=$conn1->approveduser();
             <a href="#">Cedcabs.com</a>
         </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-    function req(){
-        
-    }
-</script>
+    $(function () {
+    $("#orderdate").hide();
+    $("#orderfare").hide();
+    $("#date").click(function(){
+        $("#orderdate").show();
+        $("#orderfare").hide();
+    })
+    $("#fare").click(function(){
+        $("#orderfare").show();
+        $("#orderdate").hide();
+    })
+    });
+    </script>
 
