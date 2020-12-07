@@ -1,5 +1,5 @@
 <?php 
-require 'class.php';
+require 'admin/class.php';
 $name=$_SESSION["userdata"]["name"];
 $conn1 = new userrides();
 $id=$_SESSION["userdata"]["userid"];
@@ -21,7 +21,7 @@ if(isset($_REQUEST['filter'])){
     $id=$_SESSION["userdata"]["userid"];
 }
 if(isset($_REQUEST['clear'])){
-    $requst=$conn1->userridecancle($sort,$order,$id);
+    $requst=$conn1->userridecancle($id);
 }
 $requst=$conn1->userridecancle($sort,$order,$id);
 ?>
@@ -65,7 +65,7 @@ $requst=$conn1->userridecancle($sort,$order,$id);
         <a href="#" id="sorta">Sort By</a>
             <div style="color:white;"class="sortby">
                 <a style="color:red;text-decoration:none;cursor:pointer" id="date">Date</a>
-                <a style="color:red;text-decoration:none;cursor:pointer" id="fare">Name</a>
+                <a style="color:red;text-decoration:none;cursor:pointer" id="fare">Fare</a>
             </div>
             <div id="orderdate">
                 <a style="color:red;text-decoration:none;" href="usercanclerides.php?sort=ride_date&order=asc">Asscending</a>
@@ -96,19 +96,19 @@ $requst=$conn1->userridecancle($sort,$order,$id);
         <td>Luggage</td>
         <td>Fare</td>
     </tr>
-    <?php if ($requst->num_rows>0) :?>
-     <?php while ($row = $requst->fetch_assoc()) :?>
+    <?php if(isset($requst)):?>
+    <?php foreach ($requst as $row) :?>
         
         <tr>
             <td><?php echo $row['ride_id']?></td>
             <td><?php echo $row['ride_date']?></td>
             <td><?php echo $row['pickup']?></td>
             <td><?php echo $row['droploc']?></td>
-            <td><?php echo $row['total_distance']?></td>
-            <td><?php echo $row['luggage']?></td>
-            <td><?php echo $row['total_fare']?></td>
+            <td><?php echo $row['total_distance']." Km"?></td>
+            <td><?php echo $row['luggage']." Kg"?></td>
+            <td><?php echo "₹".$row['total_fare']?></td>
         </tr>
-     <?php endwhile;?>
+    <?php endforeach;?>
      <?php endif;?>
 </table>
 </div>

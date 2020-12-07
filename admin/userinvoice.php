@@ -5,6 +5,12 @@ $conn1 = new Riderequests();
 $conn1->connect('localhost', 'root', '', 'newtasks');
 $rideid=$_GET["rideid"];
 $ride=$conn1->userinvoice($rideid);
+if (!empty(isset($_SESSION['userdata']) && ($_SESSION['userdata']['name'] == 'admin'))) {
+    $user = $_SESSION['userdata']['name'];
+} else {
+    echo "<script>alert('Permission Denied')</script>";
+    echo "<script> window.location.href ='../login.php'</script>";
+}
 ?>
 <?php require 'adminnav.html'?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -24,13 +30,13 @@ $ride=$conn1->userinvoice($rideid);
                 <label>Drop Point:-   </label><span><?php  echo $row['droploc'] ?></span>
             </div>
             <div>
-                <label>Total Distance:-  </label><span><?php  echo $row['total_distance'] ?></span>
+                <label>Total Distance:-  </label><span><?php  echo $row['total_distance']." Km" ?></span>
             </div>
             <div>
-                <label>Luggage:-  </label><span><?php  echo $row['luggage'] ?></span>
+                <label>Luggage:-  </label><span><?php  echo $row['luggage']." Kg" ?></span>
             </div>
             <div>
-                <label>Total Fare:-  </label><span><?php  echo $row['total_fare'] ?></span>
+                <label>Total Fare:-  </label><span><?php  echo "₹".$row['total_fare'] ?></span>
             </div>
             <div>
                 <label>Date:-  </label><span><?php  echo $row['ride_date'] ?></span>

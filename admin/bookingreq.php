@@ -4,7 +4,7 @@ if (!empty(isset($_SESSION['userdata']) && ($_SESSION['userdata']['name'] == 'ad
     $user = $_SESSION['userdata']['name'];
 } else {
     echo "<script>alert('Permission Denied')</script>";
-    header("Refresh:0; url=../login.php");
+    echo "<script> window.location.href ='../login.php'</script>";
 }
 $conn1 = new Riderequests();
 
@@ -12,7 +12,11 @@ $conn1->connect('localhost', 'root', '', 'newtasks');
 if(isset($_REQUEST['Approved_id'])){
     $id=$_REQUEST['Approved_id'];
     $requst=$conn1->pending($id);
-    header("Refresh:0; url=bookingreq.php");
+    if($requst){
+        echo '<script>alert("Ride has been Approved")</script>';
+        header("Refresh:0; url=bookingreq.php");
+    }
+   
 }
 if(isset($_REQUEST['complete_id'])){
     $id=$_REQUEST['complete_id'];
@@ -21,7 +25,6 @@ if(isset($_REQUEST['complete_id'])){
     header("Refresh:0; url=bookingreq.php");
 }
 $id=$_SESSION["userdata"]["userid"];
-$conn1->connect('localhost', 'root', '', 'newtasks');
 if(isset($_REQUEST['sort']) && isset($_REQUEST['order'])){
     $sort=$_REQUEST['sort'];
     $order=$_REQUEST['order'];
@@ -80,17 +83,17 @@ $requst=$conn1->ridereq($sort,$order);
         <td>Action</td>
         <td>Action</td>
     </tr>
-    <?php if ($requst->num_rows>0) :?>
-     <?php while ($row = $requst->fetch_assoc()) :?>
+    <?php if(isset($requst)):?>
+    <?php foreach ($requst as $row) :?>
         
         <tr>
             <td><?php echo $row['ride_id']?></td>
             <td><?php echo $row['ride_date']?></td>
             <td><?php echo $row['pickup']?></td>
             <td><?php echo $row['droploc']?></td>
-            <td><?php echo $row['total_distance']?></td>
-            <td><?php echo $row['luggage']?></td>
-            <td><?php echo $row['total_fare']?></td>
+            <td><?php echo $row['total_distance']." Km"?></td>
+            <td><?php echo $row['luggage']." kg"?></td>
+            <td><?php echo "₹".$row['total_fare']?></td>
             <td><a  style="color:red;text-decoration:none;"  onClick="javascript: return confirm('Please confirm deletion');" href="bookingreq.php?complete_id=<?php echo $row['ride_id']?>">Cancle</a></td>
             <td><a style="color:red;text-decoration:none;" id="pending" href="bookingreq.php?<?php if($row['status']==1){
                                                             echo "Approved";
@@ -101,8 +104,8 @@ $requst=$conn1->ridereq($sort,$order);
                 echo "Approved";
             }?></td>
         </tr>
-     <?php endwhile;?>
-     <?php endif;?>
+    <?php endforeach;?>
+        <?php endif;?>
 </table>
 </div>
 <div id="addfoot">

@@ -144,10 +144,25 @@ class showuser extends Database
     }
     public function update($id,$name,$mobile,$password)
     {
-        $sql = "UPDATE tbl_user SET `name`='$name',`mobile`='$mobile',`password`='$password'
-        WHERE `user_id` = '$id' ";
-        $result = $this->conn->query($sql);
-        return $result;
+        $sql1="SELECT * FROM `tbl_user` WHERE `user_id`= '$id' ";
+        $rides = $this->conn->query($sql1);
+         if ($rides->num_rows>0){
+             while ($row = $rides->fetch_assoc()){
+                if($row['password']==$password){
+                    $sql = "UPDATE tbl_user SET `name`='$name',`mobile`='$mobile',`password`='$password'
+                    WHERE `user_id` = '$id' ";
+                      $result = $this->conn->query($sql);
+                      $result="password";
+                       return $result;
+             }
+             else{
+                $sql = "UPDATE tbl_user SET `name`='$name',`mobile`='$mobile',`password`='$password'
+                WHERE `user_id` = '$id' ";
+                $result = $this->conn->query($sql);
+                return $result;
+                }
+            }
+         }
     }
     public function delete($id){
         $sql = "DELETE FROM tbl_user WHERE `user_id`= '$id' ";

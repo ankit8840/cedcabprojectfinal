@@ -18,7 +18,7 @@ if (!empty(isset($_SESSION['userdata']) && ($_SESSION['userdata']['name'] == 'ad
     $user = $_SESSION['userdata']['name'];
 } else {
     echo "<script>alert('Permission Denied')</script>";
-    header("location: ../login.php");
+    echo "<script> window.location.href ='../login.php'</script>";
 }
 
 ?>

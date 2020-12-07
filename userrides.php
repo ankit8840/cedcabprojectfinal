@@ -65,7 +65,7 @@ $requst=$conn1->ride($sort,$order,$id);
         <a href="#" id="sorta">Sort By</a>
             <div style="color:white;"class="sortby">
                 <a style="color:red;text-decoration:none;cursor:pointer" id="date">Date</a>
-                <a style="color:red;text-decoration:none;cursor:pointer" id="fare">Name</a>
+                <a style="color:red;text-decoration:none;cursor:pointer" id="fare">Fare</a>
             </div>
             <div id="orderdate">
                 <a style="color:red;text-decoration:none;" href="userrides.php?sort=ride_date&order=asc">Asscending</a>
@@ -97,8 +97,8 @@ $requst=$conn1->ride($sort,$order,$id);
         <td>Luggage</td>
         <td>Fare</td>
     </tr>
-    <?php if ($requst->num_rows>0) :?>
-     <?php while ($row = $requst->fetch_assoc()) :?>
+    <?php if(isset($requst)):?>
+    <?php foreach ($requst as $row) :?>
         
         <tr>
             <td><?php echo $row['ride_id']?></td>
@@ -106,11 +106,11 @@ $requst=$conn1->ride($sort,$order,$id);
             <td><?php echo $row['pickup']?></td>
             <td><?php echo $row['droploc']?></td>
             <td><?php echo $row['cartype']?></td>
-            <td><?php echo $row['total_distance']?></td>
-            <td><?php echo $row['luggage']?></td>
-            <td><?php echo $row['total_fare']?></td>
+            <td><?php echo $row['total_distance']." Km"?></td>
+            <td><?php echo $row['luggage']." Kg"?></td>
+            <td><?php echo "₹".$row['total_fare']?></td>
         </tr>
-     <?php endwhile;?>
+    <?php endforeach;?>
      <?php endif;?>
 </table>
 </div>

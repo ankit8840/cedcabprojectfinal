@@ -4,7 +4,7 @@ if (!empty(isset($_SESSION['userdata']) && ($_SESSION['userdata']['name'] == 'ad
     $user = $_SESSION['userdata']['name'];
 } else {
     echo "<script>alert('Permission Denied')</script>";
-    header("Refresh:0; url=../login.php");
+    echo "<script> window.location.href ='../login.php'</script>";
 }
 $conn1 = new Ride();
 
@@ -29,7 +29,11 @@ $requst=$conn1->pendinguser($sort,$order);
 if(isset($_REQUEST['rn'])){
     $id=$_REQUEST['rn'];
     $requst=$conn1->accept($id);
-    header("Refresh:0; url=pendinguser.php");
+    if($requst){
+        echo '<script>alert("User Request has been approved");</script>';
+        header("Refresh:0; url=pendinguser.php");
+    }
+ 
 }
 if(isset($_REQUEST['gn'])){
     $id=$_REQUEST['gn'];
@@ -75,8 +79,8 @@ if(isset($_REQUEST['gn'])){
             <td>Action</td>
             <td>Action</td>
         </tr>
-        <?php if ($requst->num_rows>0) :?>
-        <?php while ($row = $requst->fetch_assoc()) :?>
+        <?php if(isset($requst)):?>
+        <?php foreach ($requst as $row) :?>
             
             <tr>
                 <td><?php echo $row['user_id']?></td>
@@ -87,7 +91,7 @@ if(isset($_REQUEST['gn'])){
                 <td><a href="ride.php?rn=<?php echo $row['user_id']?>">Approved</a></td>
                 <td><a onClick="javascript: return confirm('Please confirm deletion');" href="ride.php?gn=<?php echo $row['user_id']?>">Cancle</a></td>
             </tr>
-        <?php endwhile;?>
+        <?php endforeach;?>
         <?php endif;?>
     </table>
 </div>
@@ -114,4 +118,5 @@ if(isset($_REQUEST['gn'])){
     })
     });
     </script>
+
 

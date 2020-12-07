@@ -4,7 +4,7 @@ if (!empty(isset($_SESSION['userdata']) && ($_SESSION['userdata']['name'] == 'ad
     $user = $_SESSION['userdata']['name'];
 } else {
     echo "<script>alert('Permission Denied')</script>";
-    header("Refresh:0; url=../login.php");
+    echo "<script> window.location.href ='../login.php'</script>";
 }
 $conn1 = new Ride();
 
@@ -64,8 +64,8 @@ $ride=$conn1->approveduser($sort,$order);
             <td>Date</td>
             <td>Mobile</td>
         </tr>
-        <?php if ($ride->num_rows>0) :?>
-        <?php while ($row = $ride->fetch_assoc()) :?>
+        <?php if(isset($ride)):?>
+        <?php foreach ($ride as $row) :?>
             
             <tr>
                 <td><?php echo $row['user_id']?></td>
@@ -74,7 +74,7 @@ $ride=$conn1->approveduser($sort,$order);
                 <td><?php echo $row['date']?></td>
                 <td><?php echo $row['mobile']?></td>
             </tr>
-        <?php endwhile;?>
+        <?php endforeach;?>
         <?php endif;?>
     </table>
 </div>

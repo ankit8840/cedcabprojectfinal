@@ -4,7 +4,7 @@ if (!empty(isset($_SESSION['userdata']) && ($_SESSION['userdata']['name'] == 'ad
     $user = $_SESSION['userdata']['name'];
 } else {
     echo "<script>alert('Permission Denied')</script>";
-    header("Refresh:0; url=../login.php");
+    echo "<script> window.location.href ='../login.php'</script>";
 }
 $con = new Location();
 $con->connect('localhost', 'root', '', 'newtasks');
@@ -22,7 +22,10 @@ if(isset($_POST['update'])){
     $locava=0;
     }
     $loc=$con->update($locid,$locname,$locdis,$locava);
+    if($loc){
+    echo '<script>alert("Updated")</script>';
     header("Refresh:0; url=showroute.php");
+    }
 }
 if(isset($_POST['delete'])){
     $locid=$_POST['locid'];
@@ -42,11 +45,11 @@ if(isset($_POST['delete'])){
         <td>Action</td>
         <td>Action</td>
     </tr>
-    <?php if ($loc->num_rows>0) :?>
-     <?php while ($row = $loc->fetch_assoc()) :?>
+    <?php if(isset($loc)):?>
+        <?php foreach ($loc as $row) :?>
      <form method="POST">
         <tr>
-            <td><input type="text"  value=<?php echo $row['loc_id']?> name="locid" size="10" required id="locid"></td>
+            <td><?php echo $row['loc_id']?><input type="text"  value=<?php echo $row['loc_id']?> name="locid" size="10" required id="locid" hidden></td>
             <td><input type="text"  pattern="[a-zA-Z0-9\s]+" value=<?php echo $row['loc_name']?> name="locname" size="10" required id="locname" ></td>
             <td><input type="number" min=0 value=<?php echo $row['loc_distance']?> name="locdis" size="10" required></td>
             <?php if($row['is_available']==1){
@@ -64,8 +67,8 @@ if(isset($_POST['delete'])){
             <td><input type="submit" onClick="javascript: return confirm('Please confirm deletion');" value="DELETE" name="delete"></td>
         </tr>
     </form>
-     <?php endwhile;?>
-     <?php endif;?>
+    <?php endforeach;?>
+    <?php endif;?>
 </table>
 </div>
 <div id="addfoot">

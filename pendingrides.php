@@ -30,8 +30,8 @@ if(isset($_REQUEST['complete_id'])){
         <td>Action</td>
         <td>Action</td>
     </tr>
-    <?php if ($requst->num_rows>0) :?>
-     <?php while ($row = $requst->fetch_assoc()) :?>
+    <?php if(isset($ride)):?>
+    <?php foreach ($ride as $row) :?>
         
         <tr>
             <td><?php echo $row['ride_id']?></td>
@@ -51,8 +51,8 @@ if(isset($_REQUEST['complete_id'])){
                 echo "pending";
             }?></td>
         </tr>
-     <?php endwhile;?>
-     <?php endif;?>
+        <?php endif;?>
+     <?php endforeach;?>
 </table>
 </div>
 <div id="addfoot">

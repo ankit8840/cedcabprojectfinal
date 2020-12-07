@@ -45,13 +45,13 @@
             <label>Drop Point:-   </label><span><?php echo $drop ?></span>
         </div>
         <div>
-            <label>Total Distance:-  </label><span><?php echo $distance ?></span>
+            <label>Total Distance:-  </label><span><?php echo $distance ." Km"?></span>
         </div>
         <div>
-            <label>Luggage:-  </label><span><?php echo $luggage ?></span>
+            <label>Luggage:-  </label><span><?php echo $luggage ."Kg" ?></span>
         </div>
         <div>
-            <label>Total Fare:-  </label><span><?php echo $fare ?></span>
+            <label>Total Fare:-  </label><span><?php echo "₹".$fare ?></span>
         </div>
     <div>
     

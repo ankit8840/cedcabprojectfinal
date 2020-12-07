@@ -70,7 +70,7 @@ if(isset($_REQUEST['cancle'])){
         <a href="#" id="sorta">Sort By</a>
             <div style="color:white;"class="sortby">
                 <a style="color:red;text-decoration:none;cursor:pointer" id="date">Date</a>
-                <a style="color:red;text-decoration:none;cursor:pointer" id="fare">Name</a>
+                <a style="color:red;text-decoration:none;cursor:pointer" id="fare">Fare</a>
             </div>
             <div id="orderdate">
                 <a style="color:red;text-decoration:none;" href="userpendingrides.php?sort=ride_date&order=asc">Asscending</a>
@@ -102,20 +102,20 @@ if(isset($_REQUEST['cancle'])){
         <td>Fare</td>
         <td>Action</td>
     </tr>
-    <?php if ($requst->num_rows>0) :?>
-     <?php while ($row = $requst->fetch_assoc()) :?>
+    <?php if(isset($requst)):?>
+    <?php foreach ($requst as $row) :?>
         
         <tr>
             <td><?php echo $row['ride_id']?></td>
             <td><?php echo $row['ride_date']?></td>
             <td><?php echo $row['pickup']?></td>
             <td><?php echo $row['droploc']?></td>
-            <td><?php echo $row['total_distance']?></td>
-            <td><?php echo $row['luggage']?></td>
-            <td><?php echo $row['total_fare']?></td>
+            <td><?php echo $row['total_distance']." Km"?></td>
+            <td><?php echo $row['luggage']." Kg"?></td>
+            <td><?php echo "₹".$row['total_fare']?></td>
             <td><a onClick="javascript: return confirm('Please confirm deletion');" href="userpendingrides.php?cancle=<?php echo $row['ride_id']?>">Cancle</a></td>
         </tr>
-     <?php endwhile;?>
+    <?php endforeach;?>
      <?php endif;?>
 </table>
 </div>

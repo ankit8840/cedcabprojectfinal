@@ -4,7 +4,7 @@ if (!empty(isset($_SESSION['userdata']) && ($_SESSION['userdata']['name'] == 'ad
     $user = $_SESSION['userdata']['name'];
 } else {
     echo "<script>alert('Permission Denied')</script>";
-    header("Refresh:0; url=../login.php");
+    echo "<script> window.location.href ='../login.php'</script>";
 }
 $conn1 = new Ride();
 $conn1->connect('localhost', 'root', '', 'newtasks');
@@ -75,8 +75,8 @@ if(isset($_REQUEST['gn'])){
             <!-- <td>Action</td>
             <td>Action</td> -->
         </tr>
-        <?php if ($ride->num_rows>0) :?>
-        <?php while ($row = $ride->fetch_assoc()) :?>
+        <?php if(isset($ride)):?>
+        <?php foreach ($ride as $row) :?>
             
             <tr>
                 <td><?php echo $row['user_id']?></td>
@@ -90,7 +90,7 @@ if(isset($_REQUEST['gn'])){
                  else echo "Pending";?>
             </td>
             </tr>
-        <?php endwhile;?>
+        <?php endforeach;?>
         <?php endif;?>
     </table>
 </div>

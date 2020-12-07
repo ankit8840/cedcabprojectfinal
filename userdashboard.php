@@ -14,10 +14,14 @@ if(isset($_SESSION['booking'])){
     $drop=$_SESSION['booking']['drop'];
     $totaldistance=$_SESSION['booking']['distance'];
     $weight=$_SESSION['booking']['luggage'];
+    if($weight==""){
+        $weight=0;
+    }
+    $cartype=$_SESSION['booking']['cartype'];
     $fare=$_SESSION['booking']['fare'];
     $status=$_SESSION['booking']['status'];
-    $fields = array('pickup', 'droploc', 'total_distance','luggage','total_fare','status','customer_user_id');
-                $data = array($pickup, $drop, $totaldistance, $weight, $fare, $status, $id);
+    $fields = array('pickup', 'droploc', 'total_distance','cartype','luggage','total_fare','status','customer_user_id');
+                $data = array($pickup, $drop, $totaldistance,$cartype, $weight, $fare, $status, $id);
         
                 $res = $conn1->insert($fields, $data, 'tbl_ride');
                 unset($_SESSION['booking']);

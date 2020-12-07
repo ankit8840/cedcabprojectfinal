@@ -4,8 +4,7 @@ if (!empty(isset($_SESSION['userdata']) && ($_SESSION['userdata']['name'] == 'ad
     $user = $_SESSION['userdata']['name'];
 } else {
     echo "<script>alert('Permission Denied')</script>";
-    header("Refresh:0; url=../login.php");
-}
+    echo "<script> window.location.href ='../login.php'</script>";
 $id=$_SESSION['userdata']['userid'];
 $name=$_SESSION['userdata']['name'];
 $con = new showuser();
@@ -16,7 +15,10 @@ if(isset($_POST['update'])){
     $mobile = $_POST['mobile'];
     $password = $_POST['password'];
     $loc=$con->update($id,$name,$mobile,$password);
-    header("Refresh:0; url=adminacc.php");
+    if($loc){
+    header("Refresh:0; url=logout.php");
+    }
+    $loc=$con->useraccount($id);
 }
 ?>
 <?php require 'adminnav.html'?>
@@ -31,20 +33,18 @@ if(isset($_POST['update'])){
         <td>Password</td>
         <td>Action</td>
     </tr>
-    <?php if ($loc->num_rows>0) :?>
-     <?php while ($row = $loc->fetch_assoc()) :?>
+     <?php foreach ($loc as $row) :?>
      <form method="POST">
         <tr>
             <td><?php echo $row['user_id']?><input id="userid" value=<?php echo $row['user_id']?> name="userid" size="2" hidden></td>
             <td><?php echo $row['user_name']?><input id="username" value=<?php echo $row['user_name']?> name="username" size="10" hidden></td>
             <td><?php echo $row['name']?><input id="name" type="text"  pattern="[A-Za-z]{1,}" value=<?php echo $row['name']?> name="name1" size="10" hidden></td>
-            <td><input type="text" id="mobile" pattern="[1-9]{1}[0-9]{9}" value=<?php echo $row['mobile']?> name="mobile" size="10" required></td>
+            <td><?php echo $row['mobile']?><input type="text" id="mobile" pattern="[1-9]{1}[0-9]{9}" value=<?php echo $row['mobile']?> name="mobile" size="10" hidden></td>
             <td><input type="password" value=<?php echo $row['password']?> name="password" size="5" required></td>
             <td><input type="submit" value="UPDATE" name="update"></td>
         </tr>
     </form>
-     <?php endwhile;?>
-     <?php endif;?>
+     <?php endforeach;?>
 </table>
      </div>
      <div id="addfoot">

@@ -13,14 +13,20 @@ if(isset($_POST['update'])){
             $mobile=$mobile;
         }
         else{
-            echo'<script>alert("please enter valid Data")</script>';
+            echo'<script>alert("please enter valid Mobile Number")</script>';
             header("Refresh:0; url=useraccount.php");
             return;
         }
     }
     $password = $_POST['password'];
     $loc=$con->update($id,$name,$mobile,$password);
-    header("Refresh:0; url=useraccount.php");
+    if($loc=="password"){
+        echo '<script>alert("Updated")</script>';
+        header("Refresh:0; url=useraccount.php");
+        }
+        if($loc==1){
+            header("Refresh:0; url=logout.php");
+        }
 }
 if(isset($_POST['delete'])){
     $loc=$con->delete($id);

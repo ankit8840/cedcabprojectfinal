@@ -9,6 +9,22 @@ if (isset($_POST["submit"])) {
     $name = $_POST['name'];
     $password = $_POST['password'];
     $mobile = $_POST['mobile'];
+    $ride=$con->select();
+    if ($ride->num_rows>0){
+        while ($row = $ride->fetch_assoc()){
+
+                    if($row['user_name']==$username){
+                        echo'<script>alert("UserName Already Exist")</script>';
+                        header("Refresh:0; url=singup.php");
+                        return;
+                    }
+                    if($row['mobile']==$mobile){
+                        echo'<script>alert("Mobile Number Already Exist")</script>';
+                        header("Refresh:0; url=singup.php");
+                        return;
+                    }
+        }
+      }
     if(!empty($mobile)){
         if(preg_match('/^[0-9]{10}+$/', $mobile) && preg_match('/[a-z\s]/i',$name)){
             $mobile=$mobile;
